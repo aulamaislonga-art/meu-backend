@@ -24,22 +24,37 @@ const limiter = rateLimit({
 
 app.use(limiter);
 
-const schema = z.object({
-  nome: z.string().min(2, 'O nome deve ter pelo menos 2 caracteres'),
-  email: z.string().email('E-mail inválido'),
-  empresa: z.string().min(2, 'A empresa deve ter pelo menos 2 caracteres'),
-  telefone: z.string().optional().default(''),
-  categoria: z.string().optional().default(''),
-  mensagem: z.string().optional().default(''),
-  website: z.string().optional().default('')
+const textField = (min = 0, message) => {
+  const base = z.string().transform((value) => value.trim());
+  return min > 0 ? base.min(min, message) : base.optional().default('');
+};
+
+const patrocinioSchema = z.object({
+  tipo: z.literal('patrocinio'),
+  nome: z.string().trim().min(2, 'O nome deve ter pelo menos 2 caracteres'),
+  email: z.string().trim().email('E-mail inválido'),
+  empresa: z.string().trim().min(2, 'A empresa deve ter pelo menos 2 caracteres'),
+  telefone: textField(),
+  categoria: textField(),
+  mensagem: textField(),
+  website: textField()
 });
 
-const requiredEnv = ['EMAIL_USER', 'EMAIL_PASS', 'EMAIL_TO'];
-const missingEnv = requiredEnv.filter((key) => !process.env[key]);
+const inscricaoSchema = z.object({
+  tipo: z.literal('inscricao'),
+  modalidade: z.string().trim().min(2, 'Selecione a modalidade'),
+  nome: z.string().trim().min(2, 'O nome deve ter pelo menos 2 caracteres'),
+  sobrenome: z.string().trim().min(2, 'O sobrenome deve ter pelo menos 2 caracteres'),
+  email: z.string().trim().email('E-mail inválido'),
+  whatsapp: z.string().trim().min(8, 'WhatsApp inválido'),
+  mensagem: textField(),
+  website: textField()
+});
 
-if (missingEnv.length > 0) {
-  console.error('❌ Variáveis de ambiente ausentes:', missingEnv.join(', '));
-}
+const schema = z.discriminatedUnion('tipo', [patrocinioSchema, inscricaoSchema]);
+
+const requiredEnv = ['EMAIL_USER', 'EMAIL_PASS'];
+const missingEnv = requiredEnv.filter((key) => !process.env[key]);
 
 const transporter = nodemailer.createTransport({
   host: 'smtp.gmail.com',
@@ -52,24 +67,55 @@ const transporter = nodemailer.createTransport({
   },
   connectionTimeout: 10000,
   greetingTimeout: 10000,
-  socketTimeout: 15000,
-  logger: true,
-  debug: true
+  socketTimeout: 15000
 });
 
-transporter.verify((error) => {
-  if (error) {
-    console.error('❌ Erro no transporter:', {
-      message: error.message,
-      code: error.code,
-      command: error.command,
-      response: error.response,
-      stack: error.stack
-    });
-  } else {
-    console.log('✅ Transporter pronto para envio de e-mails');
+const getRecipient = (tipo) => {
+  if (tipo === 'patrocinio') {
+    return process.env.EMAIL_TO_PATROCINIO || process.env.EMAIL_TO;
   }
-});
+
+  if (tipo === 'inscricao') {
+    return process.env.EMAIL_TO_INSCRICAO || process.env.EMAIL_TO;
+  }
+
+  return process.env.EMAIL_TO;
+};
+
+const buildMailOptions = (data) => {
+  if (data.tipo === 'patrocinio') {
+    return {
+      from: `"Patrocínios e Contrapartidas" <${process.env.EMAIL_USER}>`,
+      to: getRecipient('patrocinio'),
+      replyTo: data.email,
+      subject: 'Novo lead de patrocínio e contrapartidas 🚀',
+      html: `
+        <h2>Novo lead de patrocínio</h2>
+        <p><strong>Nome:</strong> ${data.nome}</p>
+        <p><strong>E-mail corporativo:</strong> ${data.email}</p>
+        <p><strong>Empresa/Instituição:</strong> ${data.empresa}</p>
+        <p><strong>WhatsApp:</strong> ${data.telefone || '-'}</p>
+        <p><strong>Categoria:</strong> ${data.categoria || '-'}</p>
+        <p><strong>Mensagem:</strong> ${data.mensagem || '-'}</p>
+      `
+    };
+  }
+
+  return {
+    from: `"Inscrições da Aula" <${process.env.EMAIL_USER}>`,
+    to: getRecipient('inscricao'),
+    replyTo: data.email,
+    subject: 'Nova inscrição na aula recebida ✅',
+    html: `
+      <h2>Nova inscrição na aula</h2>
+      <p><strong>Modalidade:</strong> ${data.modalidade}</p>
+      <p><strong>Nome:</strong> ${data.nome} ${data.sobrenome}</p>
+      <p><strong>E-mail:</strong> ${data.email}</p>
+      <p><strong>WhatsApp:</strong> ${data.whatsapp}</p>
+      <p><strong>Mensagem:</strong> ${data.mensagem || '-'}</p>
+    `
+  };
+};
 
 app.get('/', (req, res) => {
   res.status(200).send('Servidor online');
@@ -84,12 +130,9 @@ app.get('/health', (req, res) => {
 
 app.post('/send', async (req, res) => {
   try {
-    console.log('📥 Body recebido:', req.body);
-
     const data = schema.parse(req.body);
 
     if (data.website && data.website.trim() !== '') {
-      console.log('🚨 Spam detectado via honeypot');
       return res.status(400).json({ error: 'Spam detectado' });
     }
 
@@ -99,43 +142,28 @@ app.post('/send', async (req, res) => {
       });
     }
 
-    const mailOptions = {
-      from: `"Patrocínios e Contrapartidas" <${process.env.EMAIL_USER}>`,
-      to: process.env.EMAIL_TO,
-      replyTo: data.email,
-      subject: 'Novo Lead para Patrocínios e Contrapartidas Chegou! 🚀',
-      html: `
-        <p><strong>Nome:</strong> ${data.nome}</p>
-        <p><strong>E-mail Corporativo:</strong> ${data.email}</p>
-        <p><strong>Empresa/Instituição:</strong> ${data.empresa}</p>
-        <p><strong>WhatsApp:</strong> ${data.telefone || '-'}</p>
-        <p><strong>Categoria:</strong> ${data.categoria || '-'}</p>
-        <p><strong>Mensagem:</strong> ${data.mensagem || '-'}</p>
-      `
-    };
+    const recipient = getRecipient(data.tipo);
 
-    const info = await transporter.sendMail(mailOptions);
+    if (!recipient) {
+      return res.status(500).json({
+        error: 'Configuração do servidor incompleta: defina EMAIL_TO ou os destinatários específicos dos formulários'
+      });
+    }
 
-    console.log('✅ E-mail enviado com sucesso');
-    console.log('📩 Message ID:', info.messageId);
+    const mailOptions = buildMailOptions(data);
+    await transporter.sendMail(mailOptions);
 
     return res.status(200).json({
       success: true,
-      message: 'Mensagem enviada com sucesso'
+      message: data.tipo === 'patrocinio'
+        ? 'Lead de patrocínio enviado com sucesso'
+        : 'Inscrição enviada com sucesso'
     });
   } catch (err) {
-    console.error('❌ Erro na rota /send:', {
-      message: err.message,
-      code: err.code,
-      command: err.command,
-      response: err.response,
-      stack: err.stack
-    });
-
     if (err instanceof ZodError) {
       return res.status(400).json({
         error: 'Dados inválidos',
-        details: err.issues.map(issue => ({
+        details: err.issues.map((issue) => ({
           field: issue.path[0],
           message: issue.message
         }))
@@ -156,6 +184,4 @@ app.use((req, res) => {
 
 const PORT = process.env.PORT || 3000;
 
-app.listen(PORT, () => {
-  console.log(`🚀 SaaS rodando na porta ${PORT}`);
-});
+app.listen(PORT);
