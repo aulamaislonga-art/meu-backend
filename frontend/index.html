@@ -1,50 +1,272 @@
-
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta charset="UTF-8">
-<title>Form SaaS</title>
-<style>
-body{font-family:sans-serif;background:#0f172a;color:white;display:flex;justify-content:center;align-items:center;height:100vh}
-form{background:#1e293b;padding:20px;border-radius:10px;width:320px}
-input,textarea{width:100%;margin:8px 0;padding:10px;border:none;border-radius:6px}
-button{width:100%;padding:10px;background:#22c55e;border:none;color:white}
-</style>
+    <meta charset="UTF-8">
+    <title>Form SaaS</title>
+    <style>
+        :root {
+            --navy: #0a0f1e;
+            --navy2: #0f1830;
+            --navy3: #16213a;
+            --gold: #c8882a;
+            --gold2: #e8a83a;
+            --gold3: #f5c96a;
+            --cream: #f7f0e3;
+            --white: #ffffff;
+            --muted: #8a94a6;
+            --accent: #3a7bd5;
+            --red: #e53e3e;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--navy);
+            color: var(--cream);
+            overflow-x: hidden;
+            font-weight: 400;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 0;
+            opacity: .35;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            border: none;
+            margin: 8px 0;
+            padding: 10px;
+            border-radius: 6px;
+        }
+        .contact-form {
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .cta-section {
+            padding: 7rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .form-row {
+            display: grid;
+        }
+
+        .form-field {
+            background: rgba(255, 255, 255, .04);
+            border: 1px solid rgba(255, 255, 255, .1);
+            border-radius: 6px;
+            padding: .9rem 1.2rem;
+            font-family: 'DM Sans', sans-serif;
+            font-size: .95rem;
+            color: var(--cream);
+            width: 100%;
+            outline: none;
+            transition: border-color .2s;
+        }
+
+        .form-field:focus {
+            border-color: rgba(200, 136, 42, .5);
+        }
+
+        .form-field::placeholder {
+            color: rgba(247, 240, 227, .3);
+        }
+
+        select.form-field option {
+            background: var(--navy2);
+        }
+
+        .form-note {
+            font-size: .78rem;
+            color: var(--muted);
+            text-align: center;
+            margin-top: .5rem;
+        }
+
+
+        .forms-grid {
+            max-width: 1180px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            align-items: start;
+        }
+
+        .form-card {
+            background: rgba(255, 255, 255, .03);
+            border: 1px solid rgba(255, 255, 255, .08);
+            border-radius: 12px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .form-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.35rem;
+            color: var(--white);
+            margin-bottom: .5rem;
+        }
+
+        .form-card p {
+            font-size: .92rem;
+            color: rgba(247, 240, 227, .65);
+            line-height: 1.6;
+            margin-bottom: 1.4rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--gold), var(--gold2));
+            color: var(--navy);
+            font-weight: 700;
+            font-size: .95rem;
+            letter-spacing: .05em;
+            text-transform: uppercase;
+            padding: 1rem 2.5rem;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: transform .2s, box-shadow .2s;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(200, 136, 42, .4);
+        }
+    </style>
 </head>
+
 <body>
+    <section class="cta-section" id="contato">
+        <div class="form-card">
+            <h3>Patrocínios e Contrapartidas</h3>
+            <p>Empresas e instituições que tenham interesse em apoiar o projeto.</p>
+            <form id="form" class="contact-form">
+                <div class="form-row">
+                    <input name="nome" placeholder="Nome" required class="form-field">
+                </div>
+                <div class="form-row">
+                    <input name="email" placeholder="E-mail corporativo" required="" type="email" class="form-field" />
+                </div>
+                <div class="form-row">
+                    <input name="empresa" placeholder="Empresa / Instituição" required="" type="text"
+                        class="form-field" />
+                </div>
+                <div class="form-row">
+                    <input name="telefone" placeholder="WhatsApp / Telefone" type="tel" / class="form-field">
+                </div>
+                <div class="form-row">
+                    <select name="categoria" required="" class="form-field">
+                        <option disabled="" selected="" value="">Selecione um Categoria de parceria de interesse
+                        </option>
+                        <option>Patrocínio Master (R$ 300.000 – 500.000)</option>
+                        <option>Patrocínio Oficial (R$ 100.000)</option>
+                        <option>Parceiro Estratégico (R$ 80.000 + Equipamentos)</option>
+                        <option>Colaboração Institucional (R$ 50.000)</option>
+                        <option>Suporte Estratégico (R$ 20.000 + Vaga de Estágio)</option>
+                        <option>Apoio (R$ 12.000)</option>
+                        <option>Participação (R$ 5.000)</option>
+                        <option>Outro / Quero Conversar</option>
+                    </select>
+                </div>
+                <div class="form-row">
+                    <textarea name="mensagem" placeholder="Mensagem ou interesse específico (opcional)" rows="3"
+                        style="resize: vertical;" class="form-field"></textarea>
+                </div>
+                <div class="form-row">
+                    <input name="website" style="display:none">
+                </div>
+                <button class="btn-primary" type="submit">Enviar</button>
+            </form>
+        </div>
+    </section>
+    <script>
+        const form = document.getElementById('form');
 
-<form id="form">
-<input name="nome" placeholder="Nome" required>
-<input name="email" type="email" placeholder="Email" required>
-<textarea name="mensagem" placeholder="Mensagem" required></textarea>
-<input name="website" style="display:none">
-<button>Enviar</button>
-</form>
+        const showMessage = (msg, success = true) => {
+            let el = document.getElementById('msg');
 
-<script>
-const form=document.getElementById('form');
-form.addEventListener('submit',async(e)=>{
-e.preventDefault();
-const btn=form.querySelector('button');
-btn.innerText='Enviando...'; btn.disabled=true;
+            if (!el) {
+                el = document.createElement('div');
+                el.id = 'msg';
+                el.style.marginTop = '10px';
+                el.style.padding = '10px';
+                el.style.borderRadius = '6px';
+                form.appendChild(el);
+            }
 
-const data={
-nome:form.nome.value,
-email:form.email.value,
-mensagem:form.mensagem.value,
-website:form.website.value
-};
+            el.innerText = msg;
+            el.style.background = success ? '#16a34a' : '#dc2626';
+        };
 
-await fetch('https://aulamaislonga.onrender.com/send',{
-method:'POST',
-headers:{'Content-Type':'application/json'},
-body:JSON.stringify(data)
-});
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
 
-btn.innerText='Enviado!';
-setTimeout(()=>{btn.innerText='Enviar';btn.disabled=false;form.reset();},2000);
-});
-</script>
+            const btn = form.querySelector('button');
+            btn.innerText = '⏳ Enviando...';
+            btn.disabled = true;
+
+            const data = {
+                nome: form.nome.value,
+                email: form.email.value,
+                empresa: form.empresa.value,
+                telefone: form.telefone.value,
+                categoria: form.categoria.value,
+                mensagem: form.mensagem.value,
+                website: form.website.value
+            };
+
+            try {
+                const response = await fetch('http://localhost:3000/send', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+
+                const result = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(result.error || 'Erro ao enviar');
+                }
+
+                showMessage('✅ Mensagem enviada com sucesso!');
+                form.reset();
+
+            } catch (error) {
+                console.error(error);
+                showMessage('❌ Erro ao enviar. Tente novamente.', false);
+            } finally {
+                btn.innerText = 'Enviar';
+                btn.disabled = false;
+            }
+        });
+    </script>
 
 </body>
+
 </html>
