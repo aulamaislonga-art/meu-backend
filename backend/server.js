@@ -31,17 +31,26 @@ const schema = z.object({
   website: z.string().optional().default('')
 });
 
+const requiredEnv = ['EMAIL_USER', 'EMAIL_PASS', 'EMAIL_TO'];
+const missingEnv = requiredEnv.filter((key) => !process.env[key]);
+
+if (missingEnv.length > 0) {
+  console.error('❌ Variáveis de ambiente ausentes:', missingEnv.join(', '));
+}
+
 const transporter = nodemailer.createTransport({
-  service: 'gmail',
+  host: 'smtp.gmail.com',
+  port: 465,
+  secure: true,
   auth: {
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASS
   }
 });
 
-transporter.verify((error, success) => {
+transporter.verify((error) => {
   if (error) {
-    console.error('❌ Erro no transporter:', error.message);
+    console.error('❌ Erro no transporter:', error);
   } else {
     console.log('✅ Transporter pronto para envio de e-mails');
   }
@@ -69,10 +78,9 @@ app.post('/send', async (req, res) => {
       return res.status(400).json({ error: 'Spam detectado' });
     }
 
-    if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS || !process.env.EMAIL_TO) {
-      console.error('❌ Variáveis de ambiente ausentes');
+    if (missingEnv.length > 0) {
       return res.status(500).json({
-        error: 'Configuração do servidor incompleta'
+        error: `Configuração do servidor incompleta: ${missingEnv.join(', ')}`
       });
     }
 
@@ -86,8 +94,8 @@ app.post('/send', async (req, res) => {
         <p><strong>E-mail Corporativo:</strong> ${data.email}</p>
         <p><strong>Empresa/Instituição:</strong> ${data.empresa}</p>
         <p><strong>WhatsApp:</strong> ${data.telefone || '-'}</p>
-        <p><strong>Categoria:</strong> ${data.categoria}</p>
-        <p><strong>Mensagem:</strong> ${data.mensagem || "-"}</p>
+        <p><strong>Categoria:</strong> ${data.categoria || '-'}</p>
+        <p><strong>Mensagem:</strong> ${data.mensagem || '-'}</p>
       `
     };
 
