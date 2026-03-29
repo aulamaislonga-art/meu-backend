@@ -16,7 +16,7 @@ body{font-family:sans-serif;background:#111;color:white;padding:20px}
 
 <script>
 async function load(){
-const res=await fetch('http://localhost:3000/leads');
+const res=await fetch('https://aulamaislonga.onrender.com/leads');
 const data=await res.json();
 const list=document.getElementById('list');
 list.innerHTML='';
