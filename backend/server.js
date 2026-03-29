@@ -45,12 +45,22 @@ const transporter = nodemailer.createTransport({
   auth: {
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASS
-  }
+  },
+  connectionTimeout: 10000,
+  greetingTimeout: 10000,
+  socketTimeout: 15000,
+  logger: true,
+  debug: true
 });
 
 transporter.verify((error) => {
   if (error) {
-    console.error('❌ Erro no transporter:', error);
+    console.error('❌ Erro no transporter:', {
+      message: error.message,
+      code: error.code,
+      command: error.command,
+      stack: error.stack
+    });
   } else {
     console.log('✅ Transporter pronto para envio de e-mails');
   }
@@ -109,7 +119,13 @@ app.post('/send', async (req, res) => {
       message: 'Mensagem enviada com sucesso'
     });
   } catch (err) {
-    console.error('❌ Erro na rota /send:', err);
+    console.error('❌ Erro na rota /send:', {
+      message: err.message,
+      code: err.code,
+      command: err.command,
+      response: err.response,
+      stack: err.stack
+    });
 
     if (err instanceof ZodError) {
       return res.status(400).json({
