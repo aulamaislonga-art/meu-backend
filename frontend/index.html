@@ -1,0 +1,50 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Form SaaS</title>
+<style>
+body{font-family:sans-serif;background:#0f172a;color:white;display:flex;justify-content:center;align-items:center;height:100vh}
+form{background:#1e293b;padding:20px;border-radius:10px;width:320px}
+input,textarea{width:100%;margin:8px 0;padding:10px;border:none;border-radius:6px}
+button{width:100%;padding:10px;background:#22c55e;border:none;color:white}
+</style>
+</head>
+<body>
+
+<form id="form">
+<input name="nome" placeholder="Nome" required>
+<input name="email" type="email" placeholder="Email" required>
+<textarea name="mensagem" placeholder="Mensagem" required></textarea>
+<input name="website" style="display:none">
+<button>Enviar</button>
+</form>
+
+<script>
+const form=document.getElementById('form');
+form.addEventListener('submit',async(e)=>{
+e.preventDefault();
+const btn=form.querySelector('button');
+btn.innerText='Enviando...'; btn.disabled=true;
+
+const data={
+nome:form.nome.value,
+email:form.email.value,
+mensagem:form.mensagem.value,
+website:form.website.value
+};
+
+await fetch('http://localhost:3000/send',{
+method:'POST',
+headers:{'Content-Type':'application/json'},
+body:JSON.stringify(data)
+});
+
+btn.innerText='Enviado!';
+setTimeout(()=>{btn.innerText='Enviar';btn.disabled=false;form.reset();},2000);
+});
+</script>
+
+</body>
+</html>
