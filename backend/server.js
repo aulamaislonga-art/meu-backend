@@ -42,6 +42,18 @@ const textField = (min = 0, message = 'Campo inválido') => {
   return z.string().trim().optional().default('');
 };
 
+const phoneField = (message = 'Telefone inválido') =>
+  z.string().trim().refine((value) => {
+    const digits = value.replace(/\D/g, '');
+    return digits.length >= 10 && digits.length <= 11;
+  }, message);
+
+const limitedTextField = (max = 1000) =>
+  z.string().trim().optional().default('').refine(
+    (value) => value.length <= max,
+    `O texto pode ter no máximo ${max} caracteres`
+  );
+
 const patrocinioSchema = z.object({
   tipo: z.literal('patrocinio'),
   nome: z.string().trim().min(2, 'O nome deve ter pelo menos 2 caracteres'),
