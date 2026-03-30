@@ -33,9 +33,12 @@ const upload = multer({
   }
 });
 
-const textField = (min = 0, message) => {
-  const base = z.string().transform((value) => value.trim());
-  return min > 0 ? base.min(min, message) : base.optional().default('');
+const textField = (min = 0, message = 'Campo inválido') => {
+  if (min > 0) {
+    return z.string().trim().min(min, message);
+  }
+
+  return z.string().trim().optional().default('');
 };
 
 const patrocinioSchema = z.object({
