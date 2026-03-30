@@ -2346,7 +2346,7 @@
               <input class="form-field" name="empresa" placeholder="Empresa / Instituição *" required="" type="text" />
             </div>
             <div class="form-row">
-              <input class="form-field" name="telefone" placeholder="WhatsApp / Telefone *" type="tel" />
+              <input class="form-field" name="telefone" placeholder="WhatsApp / Telefone *" required inputmode="numeric" type="tel" />
             </div>
           </div>
           <div class="form-row">
@@ -2410,7 +2410,7 @@
               <input class="form-field" name="email" placeholder="E-mail *" required="" type="email" />
             </div>
             <div class="form-row">
-              <input class="form-field" name="whatsapp" placeholder="WhatsApp *" required="" type="tel" />
+              <input class="form-field" name="whatsapp" placeholder="WhatsApp *" required="" inputmode="numeric" type="tel" />
             </div>
           </div>
           <div class="form-row">
@@ -2460,11 +2460,140 @@
   <script>
     (() => {
       const ENDPOINT = "https://aulamaislonga.onrender.com/send";
+      const CHECKOUT_URLS = {
+        participante: {
+          "Presencial - Três de Maio/RS": "https://aulamaislonga.com.br/checkout/presencial",
+          "Online Guinness": "https://aulamaislonga.com.br/checkout/guinness",
+          "Online Simples": "https://aulamaislonga.com.br/checkout/simples",
+        },
+        patrocinio: {
+          "Patrocínio Master (R$ 300.000 – 500.000)": "https://aulamaislonga.com.br/checkout/master",
+          "Patrocínio Oficial (R$ 100.000)": "https://aulamaislonga.com.br/checkout/oficial",
+          "Parceiro Estratégico (R$ 80.000 + Equipamentos)": "https://aulamaislonga.com.br/checkout/parceiroestrategico",
+          "Colaboração Institucional (R$ 50.000)": "https://aulamaislonga.com.br/checkout/colabinstitucional",
+          "Suporte Estratégico (R$ 20.000 + Vaga de Estágio)": "https://aulamaislonga.com.br/checkout/suporteestrategico",
+          "Apoio (R$ 12.000)": "https://aulamaislonga.com.br/checkout/apoio",
+          "Participação (R$ 5.000)": "https://aulamaislonga.com.br/checkout/participacao",
+        },
+      };
+      const SPONSOR_CATEGORIES = [
+        "Patrocínio Master (R$ 300.000 – 500.000)",
+        "Patrocínio Oficial (R$ 100.000)",
+        "Parceiro Estratégico (R$ 80.000 + Equipamentos)",
+        "Colaboração Institucional (R$ 50.000)",
+        "Suporte Estratégico (R$ 20.000 + Vaga de Estágio)",
+        "Apoio (R$ 12.000)",
+        "Participação (R$ 5.000)",
+        "Outro / Quero Conversar",
+      ];
+
+      const PARTICIPANT_MODALITIES = [
+        "Presencial - Três de Maio/RS",
+        "Online Guinness",
+        "Online Simples",
+      ];
+
+      function onlyDigits(value = "") {
+        return value.replace(/\D/g, "");
+      }
+
+      function isValidEmail(value = "") {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+      }
+
+      function isValidBrazilPhone(value = "") {
+        const digits = onlyDigits(value);
+        return digits.length >= 10 && digits.length <= 11;
+      }
+
+      function buildPrefilledUrl(baseUrl, paramsObject) {
+        const url = new URL(baseUrl, window.location.origin);
+        Object.entries(paramsObject).forEach(([key, value]) => {
+          if (value) url.searchParams.set(key, value);
+        });
+        return url.toString();
+      }
+
+      function getRedirectUrl(payload) {
+        if (payload.tipo === "patrocinio") {
+          const base = CHECKOUT_URLS.patrocinio[payload.categoria];
+          return base ? buildPrefilledUrl(base, payload) : null;
+        }
+
+        if (payload.tipo === "inscricao") {
+          const base = CHECKOUT_URLS.participante[payload.modalidade];
+          return base ? buildPrefilledUrl(base, payload) : null;
+        }
+
+        return null;
+      }
+
+      function validatePayload(payload) {
+        if (payload.tipo === "patrocinio") {
+          if (!payload.nome || payload.nome.length < 2) {
+            return { ok: false, field: "nome", message: "Informe um nome válido." };
+          }
+
+          if (!isValidEmail(payload.email)) {
+            return { ok: false, field: "email", message: "Informe um e-mail corporativo válido." };
+          }
+
+          if (!payload.empresa || payload.empresa.length < 2) {
+            return { ok: false, field: "empresa", message: "Informe a empresa ou instituição." };
+          }
+
+          if (!isValidBrazilPhone(payload.telefone)) {
+            return { ok: false, field: "telefone", message: "Informe um WhatsApp/telefone válido com DDD." };
+          }
+
+          if (!SPONSOR_CATEGORIES.includes(payload.categoria)) {
+            return { ok: false, field: "categoria", message: "Selecione uma categoria de parceria válida." };
+          }
+
+          if (payload.mensagem && payload.mensagem.length > 1000) {
+            return { ok: false, field: "mensagem", message: "A mensagem pode ter no máximo 1000 caracteres." };
+          }
+
+          return { ok: true };
+        }
+
+        if (payload.tipo === "inscricao") {
+          if (!PARTICIPANT_MODALITIES.includes(payload.modalidade)) {
+            return { ok: false, field: "modalidade", message: "Selecione uma modalidade válida." };
+          }
+
+          if (!payload.nome || payload.nome.length < 2) {
+            return { ok: false, field: "nome", message: "Informe um nome válido." };
+          }
+
+          if (!payload.sobrenome || payload.sobrenome.length < 2) {
+            return { ok: false, field: "sobrenome", message: "Informe um sobrenome válido." };
+          }
+
+          if (!isValidEmail(payload.email)) {
+            return { ok: false, field: "email", message: "Informe um e-mail válido." };
+          }
+
+          if (!isValidBrazilPhone(payload.whatsapp)) {
+            return { ok: false, field: "whatsapp", message: "Informe um WhatsApp válido com DDD." };
+          }
+
+          if (payload.mensagem && payload.mensagem.length > 1000) {
+            return { ok: false, field: "mensagem", message: "A mensagem pode ter no máximo 1000 caracteres." };
+          }
+
+          return { ok: true };
+        }
+
+        return { ok: false, message: "Tipo de envio inválido." };
+      }
+
       const FORM_CONFIG = {
         "patrocinio-form": {
           loadingText: "⏳ Enviando...",
           idleText: "Enviar",
           successMessage: "✅ Mensagem enviada com sucesso!",
+          redirectMessage: "✅ Mensagem enviada com sucesso! Redirecionando...",
           buildPayload(form) {
             return {
               tipo: "patrocinio",
@@ -2482,6 +2611,7 @@
           loadingText: "⏳ Enviando...",
           idleText: "Inscreva-se",
           successMessage: "✅ Inscrição enviada com sucesso!",
+          redirectMessage: "✅ Inscrição enviada com sucesso! Redirecionando...",
           buildPayload(form) {
             return {
               tipo: "inscricao",
@@ -2530,6 +2660,23 @@
           const submitButton = form.querySelector('button[type="submit"]');
           if (!submitButton) return;
 
+          const payload = config.buildPayload(form);
+          const validation = validatePayload(payload);
+
+          if (!validation.ok) {
+            setFormMessage(
+              form,
+              `❌ ${validation.message || "Verifique os campos informados."}`,
+              false,
+            );
+
+            if (validation.field && form[validation.field]) {
+              form[validation.field].focus();
+            }
+
+            return;
+          }
+
           submitButton.textContent = config.loadingText;
           submitButton.disabled = true;
 
@@ -2537,7 +2684,7 @@
             const response = await fetch(ENDPOINT, {
               method: "POST",
               headers: { "Content-Type": "application/json" },
-              body: JSON.stringify(config.buildPayload(form)),
+              body: JSON.stringify(payload),
             });
 
             const result = await parseJsonSafely(response);
@@ -2546,6 +2693,17 @@
               throw new Error(
                 result.error || "Erro ao enviar. Tente novamente.",
               );
+            }
+
+            const redirectUrl = getRedirectUrl(payload);
+
+            if (redirectUrl) {
+              setFormMessage(form, config.redirectMessage || config.successMessage, true);
+              form.reset();
+              setTimeout(() => {
+                window.location.href = redirectUrl;
+              }, 700);
+              return;
             }
 
             setFormMessage(form, config.successMessage, true);

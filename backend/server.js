@@ -42,36 +42,74 @@ const textField = (min = 0, message = 'Campo inválido') => {
   return z.string().trim().optional().default('');
 };
 
+const patrocinioCategorias = [
+  'Patrocínio Master (R$ 300.000 – 500.000)',
+  'Patrocínio Oficial (R$ 100.000)',
+  'Parceiro Estratégico (R$ 80.000 + Equipamentos)',
+  'Colaboração Institucional (R$ 50.000)',
+  'Suporte Estratégico (R$ 20.000 + Vaga de Estágio)',
+  'Apoio (R$ 12.000)',
+  'Participação (R$ 5.000)',
+  'Outro / Quero Conversar'
+];
+
+const inscricaoModalidades = [
+  'Presencial - Três de Maio/RS',
+  'Online Guinness',
+  'Online Simples'
+];
+
+const phoneField = (message = 'Telefone inválido') =>
+  z.string().trim().refine((value) => {
+    const digits = value.replace(/\D/g, '');
+    return digits.length >= 10 && digits.length <= 11;
+  }, message);
+
+const selectField = (allowedValues, message) =>
+  z.string().trim().refine((value) => allowedValues.includes(value), message);
+
+const limitedTextField = (max = 1000) =>
+  z.string().trim().optional().default('').refine(
+    (value) => value.length <= max,
+    `O texto pode ter no máximo ${max} caracteres`
+  );
+
 const patrocinioSchema = z.object({
   tipo: z.literal('patrocinio'),
   nome: z.string().trim().min(2, 'O nome deve ter pelo menos 2 caracteres'),
   email: z.string().trim().email('E-mail inválido'),
   empresa: z.string().trim().min(2, 'A empresa deve ter pelo menos 2 caracteres'),
-  telefone: textField(),
-  categoria: textField(),
-  mensagem: textField(),
+  telefone: phoneField('Informe um WhatsApp/telefone válido com DDD'),
+  categoria: selectField(
+    patrocinioCategorias,
+    'Selecione uma categoria de parceria válida'
+  ),
+  mensagem: limitedTextField(1000),
   website: textField()
 });
 
 const inscricaoSchema = z.object({
   tipo: z.literal('inscricao'),
-  modalidade: z.string().trim().min(2, 'Selecione a modalidade'),
+  modalidade: selectField(
+    inscricaoModalidades,
+    'Selecione uma modalidade válida'
+  ),
   nome: z.string().trim().min(2, 'O nome deve ter pelo menos 2 caracteres'),
   sobrenome: z.string().trim().min(2, 'O sobrenome deve ter pelo menos 2 caracteres'),
   email: z.string().trim().email('E-mail inválido'),
-  whatsapp: textField(8, 'WhatsApp inválido'),
-  mensagem: textField(),
+  whatsapp: phoneField('Informe um WhatsApp válido com DDD'),
+  mensagem: limitedTextField(1000),
   website: textField()
 });
 
 const voluntarioSchema = z.object({
   nome: z.string().trim().min(2, 'O nome deve ter pelo menos 2 caracteres'),
   email: z.string().trim().email('E-mail inválido'),
-  whatsapp: textField(8, 'WhatsApp inválido'),
+  whatsapp: phoneField('Informe um WhatsApp válido com DDD'),
   cidade: textField(),
   faculdade: z.string().trim().min(2, 'Informe a faculdade/universidade'),
   curso: z.string().trim().min(2, 'Informe o curso'),
-  mensagem: textField(),
+  mensagem: limitedTextField(1000),
   website: textField()
 });
 
