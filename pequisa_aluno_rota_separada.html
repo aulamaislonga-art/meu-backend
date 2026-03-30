@@ -1,0 +1,1247 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Linhas de Pesquisa Acadêmica | A Aula Mais Longa da História</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="shortcut icon" href="/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap"
+    rel="stylesheet" />
+  <style>
+    :root {
+      --navy: #0a0f1e;
+      --navy2: #0f1830;
+      --navy3: #16213a;
+      --gold: #c8882a;
+      --gold2: #e8a83a;
+      --gold3: #f5c96a;
+      --cream: #f7f0e3;
+      --white: #ffffff;
+      --muted: #8a94a6;
+      --accent: #3a7bd5;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--navy);
+      color: var(--cream);
+      font-family: 'DM Sans', sans-serif;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: .35;
+    }
+
+    section,
+    nav,
+    footer {
+      position: relative;
+      z-index: 1;
+    }
+
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 1.15rem 2.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(10, 15, 30, .8);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255, 255, 255, .05);
+    }
+
+    .nav-brand {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.2rem;
+      letter-spacing: .06em;
+      color: var(--white);
+      text-decoration: none;
+    }
+
+    .nav-brand span {
+      color: var(--gold2);
+    }
+
+    .nav-brand {
+      display: inline-flex;
+      align-items: center;
+      text-decoration: none;
+      line-height: 0;
+    }
+
+    .nav-brand img {
+      display: block;
+      height: 54px;
+      width: auto;
+      max-width: min(42vw, 420px);
+    }
+
+    .footer-brand {
+      display: inline-flex;
+      align-items: center;
+      line-height: 0;
+    }
+
+    .footer-brand img {
+      display: block;
+      height: 46px;
+      width: auto;
+      max-width: min(46vw, 360px);
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 2rem;
+    }
+
+    .nav-links a {
+      color: rgba(247, 240, 227, .62);
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      font-size: .82rem;
+    }
+
+    .nav-links a:hover {
+      color: var(--gold2);
+    }
+
+    .nav-cta {
+      background: linear-gradient(135deg, var(--gold), var(--gold2));
+      color: var(--navy);
+      font-weight: 700;
+      font-size: .8rem;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+      padding: .72rem 1.35rem;
+      border-radius: 4px;
+      text-decoration: none;
+    }
+
+    .hero {
+      min-height: 100vh;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 7.5rem 2rem 4.5rem;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 0%, rgba(200, 136, 42, .18) 0%, transparent 70%),
+        radial-gradient(ellipse 60% 80% at 80% 100%, rgba(58, 123, 213, .12) 0%, transparent 60%),
+        linear-gradient(180deg, #0a0f1e 0%, #0f1830 60%, #0a0f1e 100%);
+      z-index: -2;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(200, 136, 42, .07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(200, 136, 42, .07) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse 90% 70% at 50% 50%, black 30%, transparent 100%);
+      z-index: -1;
+    }
+
+    .hero-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: .6rem;
+      background: rgba(200, 136, 42, .12);
+      border: 1px solid rgba(200, 136, 42, .35);
+      border-radius: 100px;
+      padding: .45rem 1.2rem;
+      font-family: 'DM Mono', monospace;
+      font-size: .72rem;
+      letter-spacing: .12em;
+      color: var(--gold2);
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+
+    .badge-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--gold2);
+      animation: pulse 2s ease infinite;
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      50% {
+        opacity: .4;
+        transform: scale(.7);
+      }
+    }
+
+    .hero-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3.8rem, 10vw, 8.7rem);
+      line-height: .92;
+      letter-spacing: .02em;
+      color: var(--white);
+      margin-bottom: 1rem;
+    }
+
+    .hero-title span {
+      color: transparent;
+      -webkit-text-stroke: 2px var(--gold2);
+    }
+
+    .hero-sub {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.15rem, 2.2vw, 1.7rem);
+      font-style: italic;
+      color: rgba(247, 240, 227, .72);
+      max-width: 860px;
+      margin: 0 auto 1.5rem;
+    }
+
+    .hero-copy {
+      font-size: 1.05rem;
+      line-height: 1.9;
+      color: rgba(247, 240, 227, .74);
+      max-width: 820px;
+      margin: 0 auto;
+    }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      max-width: 980px;
+      margin: 3rem auto 0;
+    }
+
+    .hero-stat {
+      background: rgba(255, 255, 255, .04);
+      border: 1px solid rgba(255, 255, 255, .08);
+      border-radius: 14px;
+      padding: 1.25rem 1rem;
+    }
+
+    .hero-stat-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.6rem;
+      line-height: 1;
+      background: linear-gradient(135deg, var(--gold2), var(--gold3));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-stat-label {
+      margin-top: .35rem;
+      font-size: .78rem;
+      line-height: 1.4;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .section-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    .section-label {
+      font-family: 'DM Mono', monospace;
+      font-size: .7rem;
+      letter-spacing: .25em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: .8rem;
+    }
+
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: rgba(200, 136, 42, .25);
+      max-width: 120px;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3.35rem);
+      line-height: 1.1;
+      color: var(--white);
+      margin-bottom: 1rem;
+    }
+
+    .section-title em {
+      color: var(--gold2);
+      font-style: normal;
+    }
+
+    .section-body {
+      font-size: 1.04rem;
+      line-height: 1.85;
+      color: rgba(247, 240, 227, .72);
+      max-width: 760px;
+    }
+
+    .intro-section {
+      padding: 5rem 0 1.5rem;
+    }
+
+    .highlight-block {
+      margin-top: 2.3rem;
+      background: linear-gradient(135deg, rgba(200, 136, 42, .08), rgba(58, 123, 213, .05));
+      border: 1px solid rgba(200, 136, 42, .22);
+      border-radius: 18px;
+      padding: 2.4rem;
+      display: grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .highlight-block h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2rem, 4vw, 3.1rem);
+      line-height: 1;
+      color: var(--white);
+      margin-bottom: .8rem;
+    }
+
+    .highlight-block p {
+      color: rgba(247, 240, 227, .7);
+      line-height: 1.85;
+    }
+
+    .mini-stats {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+
+    .mini-stat {
+      background: rgba(255, 255, 255, .03);
+      border: 1px solid rgba(255, 255, 255, .08);
+      border-radius: 14px;
+      padding: 1.2rem;
+      text-align: center;
+    }
+
+    .mini-stat strong {
+      display: block;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.25rem;
+      color: var(--gold3);
+      line-height: 1;
+    }
+
+    .mini-stat span {
+      display: block;
+      margin-top: .25rem;
+      color: var(--muted);
+      font-size: .78rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      line-height: 1.35;
+    }
+
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(200, 136, 42, .3), transparent);
+      margin: 5rem 2rem;
+    }
+
+    .lines-section {
+      padding: 0 0 2rem;
+    }
+
+    .lines-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+      margin-top: 2.4rem;
+    }
+
+    .line-card {
+      background: rgba(255, 255, 255, .03);
+      border: 1px solid rgba(255, 255, 255, .08);
+      border-radius: 18px;
+      padding: 1.8rem;
+      transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+    }
+
+    .line-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(200, 136, 42, .32);
+      box-shadow: 0 18px 50px rgba(0, 0, 0, .18);
+    }
+
+    .line-index {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: rgba(200, 136, 42, .12);
+      border: 1px solid rgba(200, 136, 42, .28);
+      color: var(--gold2);
+      font-family: 'DM Mono', monospace;
+      font-size: .82rem;
+      margin-bottom: 1rem;
+    }
+
+    .line-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.55rem;
+      color: var(--white);
+      line-height: 1.2;
+      margin-bottom: .85rem;
+    }
+
+    .line-card p {
+      font-size: .98rem;
+      line-height: 1.75;
+      color: rgba(247, 240, 227, .68);
+      margin-bottom: 1rem;
+    }
+
+    .topic-list {
+      list-style: none;
+      display: grid;
+      gap: .72rem;
+    }
+
+    .topic-list li {
+      position: relative;
+      padding-left: 1.15rem;
+      color: rgba(247, 240, 227, .8);
+      line-height: 1.65;
+      font-size: .95rem;
+    }
+
+    .topic-list li::before {
+      content: '•';
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: var(--gold2);
+    }
+
+    .prompt-section {
+      padding: 1rem 0 6rem;
+    }
+
+    .prompt-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+      margin-top: 2.3rem;
+    }
+
+    .prompt-card {
+      background: rgba(255, 255, 255, .03);
+      border: 1px solid rgba(255, 255, 255, .08);
+      border-radius: 16px;
+      padding: 1.5rem;
+    }
+
+    .prompt-card h4 {
+      font-family: 'DM Mono', monospace;
+      font-size: .82rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--gold2);
+      margin-bottom: .9rem;
+    }
+
+    .prompt-card p {
+      color: rgba(247, 240, 227, .72);
+      line-height: 1.75;
+      font-size: .96rem;
+    }
+
+    footer {
+      border-top: 1px solid rgba(255, 255, 255, .07);
+      padding: 3rem 2rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1.5rem;
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+
+    .footer-brand {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.4rem;
+      color: var(--white);
+    }
+
+    .footer-brand span {
+      color: var(--gold2);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .footer-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: .85rem;
+    }
+
+    .footer-copy {
+      width: 100%;
+      text-align: center;
+      border-top: 1px solid rgba(255, 255, 255, .05);
+      padding-top: 1.5rem;
+      margin-top: .5rem;
+      font-size: .78rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    @media (max-width: 1080px) {
+
+      .lines-grid,
+      .prompt-grid,
+      .hero-stats,
+      .highlight-block {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      nav {
+        padding: 1rem 1.2rem;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .section-inner {
+        padding: 0 1.2rem;
+      }
+
+      .hero {
+        padding: 7rem 1.2rem 4rem;
+      }
+
+      .line-card,
+      .prompt-card,
+      .highlight-block {
+        padding: 1.35rem;
+      }
+
+      .mini-stats {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .footer-links {
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+    }
+
+
+    .cta-section {
+      padding: 6rem 2rem 7rem;
+      text-align: center;
+    }
+
+    .forms-grid {
+      max-width: 1180px;
+      margin: 2.5rem auto 0;
+      display: grid;
+      grid-template-columns: 1fr;
+    }
+
+    .form-card {
+      display: flex;
+      width: 100%;
+      padding: 2rem;
+      border-radius: 12px;
+      flex-direction: column;
+      backdrop-filter: blur(10px);
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .form-card h3 {
+      font-family: "Playfair Display", serif;
+      font-size: 1.35rem;
+      color: var(--white);
+      margin-bottom: 0.5rem;
+    }
+
+    .form-card p {
+      color: rgba(247, 240, 227, 0.65);
+      text-align: left;
+      line-height: 1.6;
+      margin-bottom: 1.4rem;
+    }
+
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      border: none;
+      margin: 8px 0;
+      padding: 10px;
+      border-radius: 6px;
+    }
+
+    .form-row {
+      display: flex;
+    }
+
+    .item {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.9rem;
+    }
+
+    .form-field {
+      background: rgba(255, 255, 255, .04);
+      border: 1px solid rgba(255, 255, 255, .1);
+      border-radius: 6px;
+      padding: .95rem 1.2rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: .95rem;
+      color: var(--cream);
+      width: 100%;
+      outline: none;
+    }
+
+    .upload-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .upload-label {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, .05);
+      border: 1px solid rgba(255, 255, 255, .12);
+      border-radius: 6px;
+      padding: .9rem 1.2rem;
+      color: var(--cream);
+      cursor: pointer;
+      min-width: 180px;
+    }
+
+    .upload-name {
+      color: var(--muted);
+      font-size: .9rem;
+    }
+
+    .form-note {
+      font-size: .78rem;
+      color: var(--muted);
+      text-align: center;
+      margin-top: .4rem;
+    }
+
+    .btn-primary {
+      border: none;
+      margin: 10px 0;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--navy);
+      border-radius: 4px;
+      padding: 1rem 2.5rem;
+      text-decoration: none;
+      display: inline-block;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      transition:
+        transform 0.2s,
+        box-shadow 0.2s;
+      background: linear-gradient(135deg, var(--gold), var(--gold2));
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 40px rgba(200, 136, 42, 0.4);
+    }
+
+
+    @media (max-width:768px) {
+      nav .nav-links {
+        display: none;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding-top: 7rem;
+      }
+
+      .nav-brand img {
+        height: 42px;
+        max-width: 58vw;
+      }
+
+      .footer-brand img {
+        height: 36px;
+        max-width: 62vw;
+      }
+    }
+
+    /* FIX ANCHOR OFFSET */
+    section,
+    [id] {
+      scroll-margin-top: 100px;
+    }
+  </style>
+</head>
+
+<body>
+  <nav>
+    <a class="nav-brand" href="http://aulamaislonga.com.br" aria-label="A Aula Mais Longa"><img
+        src="https://aulamaislonga.com.br/images/logobranca.png" alt="A Aula Mais Longa" /></a>
+    <ul class="nav-links">
+      <li><a href="http://aulamaislonga.com.br">Início</a></li>
+      <li><a href="#visao">Visão</a></li>
+      <li><a href="#linhas">Linhas de Pesquisa</a></li>
+      <li><a href="#trilhas">Trilhas Acadêmicas</a></li>
+      <li><a href="#contato">Proposta Acadêmica</a></li>
+    </ul>
+    <a class="nav-cta" href="#contato">Enviar Proposta</a>
+  </nav>
+
+  <section class="hero" id="inicio">
+    <div class="hero-inner">
+      <div class="badge"><span class="badge-dot"></span>Conteúdo acadêmico · A Aula Mais Longa da História</div>
+      <h1 class="hero-title">LINHAS DE<br /><span>PESQUISA</span><br />PARA O DESAFIO</h1>
+      <p class="hero-sub">Uma página pensada para transformar o recorde em laboratório vivo de investigação científica,
+        interdisciplinaridade e produção de conhecimento.</p>
+      <p class="hero-copy">O desafio de sustentar uma aula de ultra-longa duração abre espaço para projetos em educação,
+        computação, saúde, psicologia, direito, análise de dados, inovação territorial e muito mais. A proposta aqui não
+        é limitar possibilidades, mas acender perguntas de pesquisa que instiguem alunos e pesquisadores a olhar para
+        esse evento como uma oportunidade rara de estudo.</p>
+
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <div class="hero-stat-num">10+</div>
+          <div class="hero-stat-label">grandes frentes de investigação</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num">80H</div>
+          <div class="hero-stat-label">de aprendizagem contínua observável</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num">1</div>
+          <div class="hero-stat-label">evento com potencial interdisciplinar inédito</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num">&infin;</div>
+          <div class="hero-stat-label">possibilidades de pesquisa e legado</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="intro-section" id="visao">
+    <div class="section-inner">
+      <div class="section-label">Visão Acadêmica</div>
+      <h2 class="section-title reveal">Mais do que acompanhar um recorde.<br />É hora de <em>investigar o que ele
+          revela</em>.</h2>
+      <p class="section-body reveal">O projeto permite observar limites e potencialidades do aprendizado humano sob
+        exposição contínua, integrando inteligência artificial, biomarcadores fisiológicos, pedagogia avançada,
+        comportamento coletivo, difusão nacional da computação e impacto territorial em uma cidade do interior.</p>
+
+      <div class="highlight-block reveal">
+        <div>
+          <h3>UM EVENTO EXTREMO. UMA OPORTUNIDADE CIENTÍFICA RARA.</h3>
+          <p>As linhas abaixo foram organizadas para inspirar TCCs, artigos, iniciações científicas, dissertações,
+            projetos de extensão e estudos aplicados. Elas partem das frentes descritas no material-base do projeto e
+            foram consolidadas e organizadas visando despertar curiosidade acadêmica em diferentes áreas do
+            conhecimento.</p>
+        </div>
+        <div class="mini-stats">
+          <div class="mini-stat"><strong>Educação</strong><span>aprendizagem, retenção e arquitetura didática</span>
+          </div>
+          <div class="mini-stat"><strong>Saúde</strong><span>fadiga, biomarcadores e segurança</span></div>
+          <div class="mini-stat"><strong>Dados</strong><span>analytics, observabilidade e IA</span></div>
+          <div class="mini-stat"><strong>Sociedade</strong><span>território, percepção e inclusão</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <section class="lines-section" id="linhas">
+    <div class="section-inner">
+      <div class="section-label">Linhas de Pesquisa</div>
+      <h2 class="section-title reveal">Um mapa de temas para quem quer pesquisar<br /><em>antes, durante e depois</em>
+        do desafio</h2>
+      <p class="section-body reveal">Cada bloco abaixo reúne uma linha central e exemplos de perguntas ou subtemas
+        possíveis. A ideia é servir como ponto de partida para projetos acadêmicos, não como lista fechada.</p>
+
+      <div class="lines-grid">
+        <article class="line-card reveal">
+          <div class="line-index">01</div>
+          <h3>Aprendizagem, atenção e retenção</h3>
+          <p>Investiga como o cérebro e o comportamento do aluno respondem a ciclos prolongados de ensino, esforço
+            cognitivo e exposição contínua ao conhecimento.</p>
+          <ul class="topic-list">
+            <li>Plasticidade neural sob exposição contínua ao aprendizado em janelas de 10h, 24h e 80h+.</li>
+            <li>Engenharia da atenção sustentada e estratégias de recuperação intra-sessão.</li>
+            <li>Fadiga cognitiva versus retenção real de conteúdo ao longo da permanência.</li>
+            <li>Indução e manutenção de estados de flow individual e coletivo.</li>
+          </ul>
+        </article>
+
+        <article class="line-card reveal">
+          <div class="line-index">02</div>
+          <h3>Biomarcadores e sinais fisiológicos</h3>
+          <p>Relaciona variáveis corporais com desempenho cognitivo, engajamento e desgaste em tempo real, aproximando
+            educação de monitoramento fisiológico.</p>
+          <ul class="topic-list">
+            <li>Correlação entre HRV, estresse e aprendizagem percebida durante a aula.</li>
+            <li>Neurofeedback aplicado à educação para leitura de foco, relaxamento e sobrecarga.</li>
+            <li>Eye tracking como proxy de atenção visual e perda de engajamento.</li>
+            <li>Postura corporal, hidratação e metabolismo como indicadores de persistência cognitiva.</li>
+          </ul>
+        </article>
+
+        <article class="line-card reveal">
+          <div class="line-index">03</div>
+          <h3>Saúde, bem-estar, performance e segurança</h3>
+          <p>Examina os limites físicos e clínicos de ambientes educacionais extremos, com foco em prevenção, protocolos
+            e sustentação da integridade dos participantes.</p>
+          <ul class="topic-list">
+            <li>Protocolos médicos para fadiga extrema e monitoramento preventivo contínuo.</li>
+            <li>Impacto da privação de sono sobre atenção, humor e estabilidade emocional.</li>
+            <li>Ergonomia, mobilidade, pausas ativas e prevenção de lesões em sessões prolongadas.</li>
+            <li>Fadiga visual, saúde ocular e nutrição cognitiva como variáveis de performance.</li>
+          </ul>
+        </article>
+
+        <article class="line-card reveal">
+          <div class="line-index">04</div>
+          <h3>Psicologia e comportamento coletivo</h3>
+          <p>Abre espaço para compreender resiliência, contágio emocional, pertencimento e a força simbólica que um
+            grande evento educacional pode criar em grupo.</p>
+          <ul class="topic-list">
+            <li>Psicologia do esforço prolongado e construção de resiliência cognitiva.</li>
+            <li>Contágio emocional, motivação e dinâmica de grupo em aulas massivas.</li>
+            <li>Formação de memória coletiva a partir de experiências educacionais extremas.</li>
+            <li>Orgulho local, pertencimento e efeito demonstração em cidades pequenas.</li>
+          </ul>
+        </article>
+
+        <article class="line-card reveal">
+          <div class="line-index">05</div>
+          <h3>Impacto territorial e percepção social</h3>
+          <p>Analisa como ciência, educação e tecnologia podem reposicionar um território, alterar a autoimagem local e
+            ativar ecossistemas regionais de inovação.</p>
+          <ul class="topic-list">
+            <li>Reposicionamento de Três de Maio como polo emergente de tecnologia e educação.</li>
+            <li>Formação de marca territorial orientada a conhecimento, ciência e city branding.</li>
+            <li>Impacto na autoimagem da juventude regional frente às carreiras tecnológicas.</li>
+            <li>Legado de longo prazo: do evento pontual à identidade territorial duradoura.</li>
+          </ul>
+        </article>
+
+        <article class="line-card reveal">
+          <div class="line-index">06</div>
+          <h3>Pedagogia e arquitetura educacional</h3>
+          <p>Estuda o desenho didático de maratonas de aprendizagem, a orquestração de ferramentas e o equilíbrio entre
+            narrativa, avaliação e engajamento.</p>
+          <ul class="topic-list">
+            <li>Design instrucional para jornadas de ultra-longa duração.</li>
+            <li>Uso do Google Classroom e ferramentas digitais como eixo de coordenação pedagógica.</li>
+            <li>Construção coletiva de conhecimento com notas colaborativas e mapas mentais.</li>
+            <li>Avaliação formativa contínua em ambientes extremos de aprendizagem.</li>
+          </ul>
+        </article>
+
+        <article class="line-card reveal">
+          <div class="line-index">07</div>
+          <h3>Inteligência artificial como co-professor</h3>
+          <p>Investiga a IA não apenas como ferramenta de apoio, mas como agente de mediação, sistematização, observação
+            de lacunas e amplificação do ensino.</p>
+          <ul class="topic-list">
+            <li>IA como co-docente em tempo real com mediação contínua ao longo da aula.</li>
+            <li>Geração automática de materiais estruturados, trilhas, resumos e livros derivados do evento.</li>
+            <li>Detecção de dúvidas recorrentes, erros e lacunas de compreensão.</li>
+            <li>Personalização do ensino a partir de sinais comportamentais e fisiológicos.</li>
+          </ul>
+        </article>
+
+        <article class="line-card reveal">
+          <div class="line-index">08</div>
+          <h3>Difusão nacional da computação</h3>
+          <p>Aborda o potencial do desafio como ato público de democratização da computação, inspiração vocacional e
+            aproximação simbólica entre jovens e tecnologia.</p>
+          <ul class="topic-list">
+            <li>A primeira hora da aula como ação nacional de democratização do ensino de computação.</li>
+            <li>Redução da distância simbólica entre estudantes da rede pública e carreiras tecnológicas.</li>
+            <li>Efeito aspiracional em alunos do ensino médio e criação de novos modelos de referência.</li>
+            <li>Computação como alfabetização contemporânea em escala.</li>
+          </ul>
+        </article>
+
+        <article class="line-card reveal">
+          <div class="line-index">09</div>
+          <h3>Data analytics e observabilidade educacional</h3>
+          <p>Transforma o evento em uma infraestrutura de leitura contínua do processo de aprendizagem, combinando
+            comportamento, performance e dados multimodais.</p>
+          <ul class="topic-list">
+            <li>Learning analytics em tempo real para monitoramento de engajamento e retenção.</li>
+            <li>Observabilidade educacional integrada com visão multidimensional do aluno.</li>
+            <li>Digital twin da aula para simulação, acompanhamento e ajuste dinâmico.</li>
+            <li>Criação de um dataset de aprendizagem contínua com potencial de benchmark global.</li>
+          </ul>
+        </article>
+
+        <article class="line-card reveal">
+          <div class="line-index">10</div>
+          <h3>Direito, ética e governança</h3>
+          <p>Discute os limites éticos e legais de eventos monitorados em larga escala, especialmente quando envolvem
+            imagem, voz, biometria e dados sensíveis.</p>
+          <ul class="topic-list">
+            <li>Consentimento, uso de imagem e voz em transmissões educacionais massivas.</li>
+            <li>LGPD e tratamento de dados biométricos, comportamentais e educacionais.</li>
+            <li>Critérios de aptidão física, responsabilidade e segurança dos participantes.</li>
+            <li>Governança de dados, anonimização, transparência e protocolos éticos de pesquisa.</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <section class="prompt-section" id="trilhas">
+    <div class="section-inner">
+      <div class="section-label">Trilhas Acadêmicas</div>
+      <h2 class="section-title reveal">Como transformar essas linhas em <em>projetos de verdade</em></h2>
+      <p class="section-body reveal">Para ajudar alunos e orientadores a sair do interesse genérico para uma proposta
+        concreta, abaixo estão alguns enquadramentos possíveis para trabalhos acadêmicos.</p>
+
+      <div class="prompt-grid">
+        <div class="prompt-card reveal">
+          <h4>TCC e iniciação científica</h4>
+          <p>Recortar uma variável observável, formular hipótese, definir método de coleta e comparar resultados entre
+            fases da aula. Ideal para projetos com foco empírico, revisão aplicada ou desenho de instrumentos.</p>
+        </div>
+        <div class="prompt-card reveal">
+          <h4>Extensão universitária</h4>
+          <p>Investigar impacto social, democratização da computação, percepção estudantil, comunicação científica e
+            integração entre universidade, escola pública e comunidade regional.</p>
+        </div>
+        <div class="prompt-card reveal">
+          <h4>Pesquisa aplicada em tecnologia</h4>
+          <p>Desenvolver dashboards, modelos preditivos, instrumentação de coleta, sensores, integrações de IA, modelos
+            de observabilidade ou protótipos de apoio ao professor e aos alunos.</p>
+        </div>
+        <div class="prompt-card reveal">
+          <h4>Saúde e performance humana</h4>
+          <p>Estruturar protocolos de acompanhamento fisiológico, analisar sinais de exaustão, propor intervenções
+            preventivas e avaliar relações entre bem-estar e desempenho cognitivo.</p>
+        </div>
+        <div class="prompt-card reveal">
+          <h4>Ciências humanas e sociais</h4>
+          <p>Explorar narrativa, pertencimento, memória coletiva, percepção social da inovação, orgulho territorial e os
+            efeitos simbólicos de um grande evento educacional no interior.</p>
+        </div>
+        <div class="prompt-card reveal">
+          <h4>Direito e governança</h4>
+          <p>Modelar termos de consentimento, matrizes de risco, estruturas de governança, fluxos de proteção de dados e
+            critérios éticos para pesquisa em ambientes altamente monitorados.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <div class="divider"></div>
+
+  <section class="cta-section" id="contato">
+    <div class="section-inner">
+      <div class="section-label" style="justify-content:center;">Alunos pesquisadores</div>
+      <h2 class="section-title reveal" style="text-align:center;">Leve essa ideia para sua <em>pesquisa</em></h2>
+      <p class="section-body reveal" style="text-align:center; margin:0 auto;">Se você quer transformar uma das linhas
+        desta página em TCC, iniciação científica, artigo, projeto de extensão ou pesquisa aplicada, preencha o
+        formulário abaixo.</p>
+
+      <div class="forms-grid reveal">
+        <div class="form-card">
+          <h3>Cadastro de aluno</h3>
+          <p>Conte quem você é, em qual linha de pesquisa deseja atuar e qual é a sua proposta geral de investigação.
+          </p>
+          <form action="https://aulamaislonga.onrender.com/send-aluno" class="contact-form"
+            enctype="multipart/form-data" method="POST" onsubmit="handleStudentSubmit(event)">
+            <input name="tipo" type="hidden" value="aluno" />
+            <input name="website" style="display:none" type="text" value="" />
+
+          <div class="item">
+            <div class="form-row">
+              <input class="form-field" name="nome" placeholder="Seu nome *" required="" type="text" />
+            </div>
+            <div class="form-row">
+                <input class="form-field" id="studentEmail" name="email" placeholder="Seu e-mail" required=""
+                  type="email" />
+            </div>
+          </div>
+          <div class="item">
+            <div class="form-row">
+               <input class="form-field" name="faculdade_universidade" placeholder="Faculdade / Universidade *"
+                required="" type="text" />
+            </div>
+            <div class="form-row">
+               <input class="form-field" name="curso" placeholder="Curso *" required="" type="text" />
+            </div>
+          </div>
+          <div class="form-row">
+                <input class="form-field" name="linha_de_pesquisa" placeholder="Linha de Pesquisa *" required=""
+              type="text" />
+            </div>
+            <div class="form-row">
+                <input class="form-field" name="tema_proposta_geral" placeholder="Tema geral / proposta geral da pesquisa *"
+              required="" type="text" />
+            </div>
+            <div class="form-row">
+            <textarea class="form-field" name="mensagem"
+              placeholder="Descreva brevemente objetivo, hipótese, método ou interesse acadêmico." rows="4"
+              style="resize: vertical;"></textarea>
+            </div>
+            <button class="btn-primary" type="submit">
+              Enviar proposta acadêmica →
+            </button>
+            <p class="form-note">
+              * Campos são obrigatórios.<br/> 
+              Os dados serão enviados por e-mail para organização inicial das linhas e temas de pesquisa.
+            </p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-brand"><img src="https://aulamaislonga.com.br/images/logobranca.png" alt="A Aula Mais Longa" />
+    </div>
+    <ul class="footer-links">
+      <li><a href="http://aulamaislonga.com.br">Início</a></li>
+      <li><a href="#visao">Visão</a></li>
+      <li><a href="#linhas">Linhas</a></li>
+      <li><a href="#trilhas">Trilhas</a></li>
+    </ul>
+    <p class="footer-copy">© 2026 A Aula Mais Longa da História<br />Página criada para inspirar pesquisas, projetos e
+      produção científica a partir do desafio.</p>
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    function markFormSent(form, message, isError = false) {
+      const btn = form.querySelector('button[type=submit]');
+      const original = btn.dataset.originalText || btn.textContent.trim();
+      btn.dataset.originalText = original;
+      btn.textContent = message;
+      btn.style.background = isError
+        ? 'linear-gradient(135deg, #8b1e3f, #c1121f)'
+        : 'linear-gradient(135deg, #2d6a4f, #40916c)';
+      btn.style.color = '#fff';
+      setTimeout(() => {
+        btn.textContent = original;
+        btn.style.background = '';
+        btn.style.color = '';
+      }, 5000);
+    }
+
+    function onlyDigits(value = "") {
+      return value.replace(/\D/g, "");
+    }
+
+    function isValidEmail(value = "") {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+    }
+
+    function validateStudentPayload(payload) {
+      if (!payload.nome || payload.nome.length < 2) {
+        return { ok: false, field: 'nome', message: 'Informe um nome válido.' };
+      }
+
+      if (!isValidEmail(payload.email)) {
+        return { ok: false, field: 'email', message: 'Informe um e-mail válido.' };
+      }
+
+      if (!payload.faculdade_universidade || payload.faculdade_universidade.length < 2) {
+        return { ok: false, field: 'faculdade_universidade', message: 'Informe a faculdade ou universidade.' };
+      }
+
+      if (!payload.curso || payload.curso.length < 2) {
+        return { ok: false, field: 'curso', message: 'Informe o curso.' };
+      }
+
+      if (!payload.linha_de_pesquisa || payload.linha_de_pesquisa.length < 3) {
+        return { ok: false, field: 'linha_de_pesquisa', message: 'Informe a linha de pesquisa.' };
+      }
+
+      if (!payload.tema_proposta_geral || payload.tema_proposta_geral.length < 3) {
+        return { ok: false, field: 'tema_proposta_geral', message: 'Informe o tema ou proposta geral.' };
+      }
+
+      if (payload.mensagem && payload.mensagem.length > 1500) {
+        return { ok: false, field: 'mensagem', message: 'A mensagem pode ter no máximo 1500 caracteres.' };
+      }
+
+      return { ok: true };
+    }
+
+    async function handleStudentSubmit(e) {
+      e.preventDefault();
+      const form = e.target;
+      const btn = form.querySelector('button[type=submit]');
+
+      const payload = {
+        tipo: 'aluno',
+        nome: (form.querySelector('[name="nome"]')?.value || '').trim(),
+        email: (form.querySelector('[name="email"]')?.value || '').trim(),
+        faculdade_universidade: (form.querySelector('[name="faculdade_universidade"]')?.value || '').trim(),
+        curso: (form.querySelector('[name="curso"]')?.value || '').trim(),
+        linha_de_pesquisa: (form.querySelector('[name="linha_de_pesquisa"]')?.value || '').trim(),
+        tema_proposta_geral: (form.querySelector('[name="tema_proposta_geral"]')?.value || '').trim(),
+        mensagem: (form.querySelector('[name="mensagem"]')?.value || '').trim(),
+        website: (form.querySelector('[name="website"]')?.value || '').trim(),
+      };
+
+      const validation = validateStudentPayload(payload);
+      if (!validation.ok) {
+        markFormSent(form, `✕ ${validation.message}`, true);
+        const field = form.querySelector(`[name="${validation.field}"]`);
+        if (field) field.focus();
+        return false;
+      }
+
+      const original = btn.dataset.originalText || btn.textContent.trim();
+      btn.dataset.originalText = original;
+      btn.textContent = 'Enviando...';
+      btn.disabled = true;
+
+      try {
+        const response = await fetch(form.action, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify(payload)
+        });
+
+        const data = await response.json().catch(() => ({}));
+        if (!response.ok) {
+          throw new Error(data.error || data.message || 'Falha no envio');
+        }
+
+        form.reset();
+        markFormSent(form, '✓ Proposta acadêmica enviada com sucesso');
+      } catch (error) {
+        console.error(error);
+        markFormSent(form, `✕ ${error.message || 'Não foi possível enviar.'}`, true);
+      } finally {
+        btn.disabled = false;
+        btn.textContent = original;
+      }
+
+      return false;
+    }
+  </script>
+</body>
+
+</html>

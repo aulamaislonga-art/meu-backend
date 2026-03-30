@@ -42,74 +42,36 @@ const textField = (min = 0, message = 'Campo inválido') => {
   return z.string().trim().optional().default('');
 };
 
-const patrocinioCategorias = [
-  'Patrocínio Master (R$ 300.000 – 500.000)',
-  'Patrocínio Oficial (R$ 100.000)',
-  'Parceiro Estratégico (R$ 80.000 + Equipamentos)',
-  'Colaboração Institucional (R$ 50.000)',
-  'Suporte Estratégico (R$ 20.000 + Vaga de Estágio)',
-  'Apoio (R$ 12.000)',
-  'Participação (R$ 5.000)',
-  'Outro / Quero Conversar'
-];
-
-const inscricaoModalidades = [
-  'Presencial - Três de Maio/RS',
-  'Online Guinness',
-  'Online Simples'
-];
-
-const phoneField = (message = 'Telefone inválido') =>
-  z.string().trim().refine((value) => {
-    const digits = value.replace(/\D/g, '');
-    return digits.length >= 10 && digits.length <= 11;
-  }, message);
-
-const selectField = (allowedValues, message) =>
-  z.string().trim().refine((value) => allowedValues.includes(value), message);
-
-const limitedTextField = (max = 1000) =>
-  z.string().trim().optional().default('').refine(
-    (value) => value.length <= max,
-    `O texto pode ter no máximo ${max} caracteres`
-  );
-
 const patrocinioSchema = z.object({
   tipo: z.literal('patrocinio'),
   nome: z.string().trim().min(2, 'O nome deve ter pelo menos 2 caracteres'),
   email: z.string().trim().email('E-mail inválido'),
   empresa: z.string().trim().min(2, 'A empresa deve ter pelo menos 2 caracteres'),
-  telefone: phoneField('Informe um WhatsApp/telefone válido com DDD'),
-  categoria: selectField(
-    patrocinioCategorias,
-    'Selecione uma categoria de parceria válida'
-  ),
-  mensagem: limitedTextField(1000),
+  telefone: textField(),
+  categoria: textField(),
+  mensagem: textField(),
   website: textField()
 });
 
 const inscricaoSchema = z.object({
   tipo: z.literal('inscricao'),
-  modalidade: selectField(
-    inscricaoModalidades,
-    'Selecione uma modalidade válida'
-  ),
+  modalidade: z.string().trim().min(2, 'Selecione a modalidade'),
   nome: z.string().trim().min(2, 'O nome deve ter pelo menos 2 caracteres'),
   sobrenome: z.string().trim().min(2, 'O sobrenome deve ter pelo menos 2 caracteres'),
   email: z.string().trim().email('E-mail inválido'),
-  whatsapp: phoneField('Informe um WhatsApp válido com DDD'),
-  mensagem: limitedTextField(1000),
+  whatsapp: textField(8, 'WhatsApp inválido'),
+  mensagem: textField(),
   website: textField()
 });
 
 const voluntarioSchema = z.object({
   nome: z.string().trim().min(2, 'O nome deve ter pelo menos 2 caracteres'),
   email: z.string().trim().email('E-mail inválido'),
-  whatsapp: phoneField('Informe um WhatsApp válido com DDD'),
+  whatsapp: textField(8, 'WhatsApp inválido'),
   cidade: textField(),
   faculdade: z.string().trim().min(2, 'Informe a faculdade/universidade'),
   curso: z.string().trim().min(2, 'Informe o curso'),
-  mensagem: limitedTextField(1000),
+  mensagem: textField(),
   website: textField()
 });
 
@@ -156,6 +118,10 @@ const getRecipient = (tipo) => {
     return process.env.EMAIL_TO_INSCRICAO || process.env.EMAIL_TO;
   }
 
+  if (tipo === 'aluno') {
+    return process.env.EMAIL_TO_ALUNO || process.env.EMAIL_TO;
+  }
+
   if (tipo === 'voluntario') {
     return process.env.EMAIL_TO_VOLUNTARIO || process.env.EMAIL_TO;
   }
@@ -177,6 +143,25 @@ const buildMailOptions = (data) => {
         <p><strong>Empresa/Instituição:</strong> ${escapeHtml(data.empresa)}</p>
         <p><strong>WhatsApp:</strong> ${escapeHtml(data.telefone || '-')}</p>
         <p><strong>Categoria:</strong> ${escapeHtml(data.categoria || '-')}</p>
+        <p><strong>Mensagem:</strong> ${escapeHtml(data.mensagem || '-')}</p>
+      `
+    };
+  }
+
+  if (data.tipo === 'aluno') {
+    return {
+      from: `"Cadastro Acadêmico" <${process.env.EMAIL_USER}>`,
+      to: getRecipient('aluno'),
+      replyTo: data.email,
+      subject: 'Nova proposta acadêmica recebida 🎓',
+      html: `
+        <h2>Novo cadastro de aluno pesquisador</h2>
+        <p><strong>Nome:</strong> ${escapeHtml(data.nome)}</p>
+        <p><strong>E-mail:</strong> ${escapeHtml(data.email)}</p>
+        <p><strong>Faculdade / Universidade:</strong> ${escapeHtml(data.faculdade_universidade)}</p>
+        <p><strong>Curso:</strong> ${escapeHtml(data.curso)}</p>
+        <p><strong>Linha de pesquisa:</strong> ${escapeHtml(data.linha_de_pesquisa)}</p>
+        <p><strong>Tema / proposta geral:</strong> ${escapeHtml(data.tema_proposta_geral)}</p>
         <p><strong>Mensagem:</strong> ${escapeHtml(data.mensagem || '-')}</p>
       `
     };
@@ -286,6 +271,55 @@ app.post('/send', async (req, res) => {
     });
   } catch (err) {
     console.error('Erro em /send:', err);
+
+    if (err instanceof ZodError) {
+      return res.status(400).json({
+        error: 'Dados inválidos',
+        details: err.issues.map((issue) => ({
+          field: issue.path[0],
+          message: issue.message
+        }))
+      });
+    }
+
+    return res.status(500).json({
+      error: err.message || 'Erro interno no servidor'
+    });
+  }
+});
+
+
+app.post('/send-aluno', async (req, res) => {
+  try {
+    const data = alunoSchema.parse(req.body);
+
+    if (data.website && data.website.trim() !== '') {
+      return res.status(400).json({ error: 'Spam detectado' });
+    }
+
+    if (missingEnv.length > 0) {
+      return res.status(500).json({
+        error: `Configuração do servidor incompleta: ${missingEnv.join(', ')}`
+      });
+    }
+
+    const recipient = getRecipient('aluno');
+
+    if (!recipient) {
+      return res.status(500).json({
+        error: 'Configuração do servidor incompleta: defina EMAIL_TO ou EMAIL_TO_ALUNO'
+      });
+    }
+
+    const mailOptions = buildMailOptions(data);
+    await transporter.sendMail(mailOptions);
+
+    return res.status(200).json({
+      success: true,
+      message: 'Proposta acadêmica enviada com sucesso'
+    });
+  } catch (err) {
+    console.error('Erro em /send-aluno:', err);
 
     if (err instanceof ZodError) {
       return res.status(400).json({
