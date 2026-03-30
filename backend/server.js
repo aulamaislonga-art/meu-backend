@@ -75,6 +75,18 @@ const voluntarioSchema = z.object({
   website: textField()
 });
 
+const alunoSchema = z.object({
+  tipo: z.literal('aluno'),
+  nome: z.string().trim().min(2, 'O nome deve ter pelo menos 2 caracteres'),
+  email: z.string().trim().email('E-mail inválido'),
+  faculdade_universidade: z.string().trim().min(2, 'Informe a faculdade ou universidade'),
+  curso: z.string().trim().min(2, 'Informe o curso'),
+  linha_de_pesquisa: z.string().trim().min(3, 'Informe a linha de pesquisa'),
+  tema_proposta_geral: z.string().trim().min(3, 'Informe o tema ou proposta geral'),
+  mensagem: limitedTextField(1500),
+  website: textField()
+});
+
 const schema = z.discriminatedUnion('tipo', [patrocinioSchema, inscricaoSchema]);
 
 const requiredEnv = ['EMAIL_USER', 'EMAIL_PASS'];
