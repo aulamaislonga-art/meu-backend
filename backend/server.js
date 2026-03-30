@@ -15,6 +15,7 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
@@ -58,7 +59,18 @@ const inscricaoSchema = z.object({
   nome: z.string().trim().min(2, 'O nome deve ter pelo menos 2 caracteres'),
   sobrenome: z.string().trim().min(2, 'O sobrenome deve ter pelo menos 2 caracteres'),
   email: z.string().trim().email('E-mail inválido'),
-  whatsapp: z.string().trim().min(8, 'WhatsApp inválido'),
+  whatsapp: textField(8, 'WhatsApp inválido'),
+  mensagem: textField(),
+  website: textField()
+});
+
+const voluntarioSchema = z.object({
+  nome: z.string().trim().min(2, 'O nome deve ter pelo menos 2 caracteres'),
+  email: z.string().trim().email('E-mail inválido'),
+  whatsapp: textField(8, 'WhatsApp inválido'),
+  cidade: textField(),
+  faculdade: z.string().trim().min(2, 'Informe a faculdade/universidade'),
+  curso: z.string().trim().min(2, 'Informe o curso'),
   mensagem: textField(),
   website: textField()
 });
@@ -70,9 +82,9 @@ const missingEnv = requiredEnv.filter((key) => !process.env[key]);
 
 const transporter = nodemailer.createTransport({
   host: 'smtp.gmail.com',
-  port: 465,
-  secure: true,
-  family: 4,
+  port: 587,
+  secure: false,
+  requireTLS: true,
   auth: {
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASS
@@ -235,6 +247,8 @@ app.post('/send', async (req, res) => {
         : 'Inscrição enviada com sucesso'
     });
   } catch (err) {
+    console.error('Erro em /send:', err);
+
     if (err instanceof ZodError) {
       return res.status(400).json({
         error: 'Dados inválidos',
@@ -295,6 +309,8 @@ app.post('/send-voluntario', upload.single('attachment'), async (req, res) => {
       message: 'Cadastro de voluntário enviado com sucesso'
     });
   } catch (err) {
+    console.error('Erro em /send-voluntario:', err);
+
     if (err instanceof multer.MulterError) {
       if (err.code === 'LIMIT_FILE_SIZE') {
         return res.status(400).json({
