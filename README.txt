@@ -1,1 +1,0 @@
-Instruções: backend -> npm install && node server.js
