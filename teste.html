@@ -1245,6 +1245,39 @@
       background: var(--gold2);
     }
 
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .nav-social {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .nav-social a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      opacity: 0.9;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+
+    .nav-social a:hover {
+      opacity: 1;
+      transform: translateY(-1px);
+    }
+
+    .nav-social svg {
+      width: 20px;
+      height: 20px;
+      display: block;
+      fill: currentColor;
+    }
+
     /* ── ANIMS ── */
     @keyframes fadeUp {
       from {
@@ -1439,6 +1472,19 @@
         max-width: 58vw;
       }
 
+      .nav-left {
+        gap: 0.75rem;
+      }
+
+      .nav-social {
+        gap: 0.55rem;
+      }
+
+      .nav-social svg {
+        width: 18px;
+        height: 18px;
+      }
+
       .footer-brand img {
         height: 36px;
         max-width: 62vw;
@@ -1524,9 +1570,23 @@
 <body>
   <!-- NAV -->
   <nav>
-    <a aria-label="Aula Mais Longa" class="nav-brand" href="https://aulamaislonga.com.br"><img alt="Aula Mais Longa"
-        decoding="async" loading="eager" onerror="this.style.display = 'none'"
-        src="https://aulamaislonga.com.br/images/logobranca.png" /></a>
+    <div class="nav-left">
+      <a aria-label="Aula Mais Longa" class="nav-brand" href="https://aulamaislonga.com.br"><img alt="Aula Mais Longa"
+          decoding="async" loading="eager" onerror="this.style.display = 'none'"
+          src="https://aulamaislonga.com.br/images/logobranca.png" /></a>
+      <div class="nav-social" aria-label="Redes sociais">
+        <a aria-label="Instagram Aula Mais Longa" href="https://instagram.com/aulamaislonga" rel="noopener noreferrer" target="_blank">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M7 2C4.239 2 2 4.239 2 7v10c0 2.761 2.239 5 5 5h10c2.761 0 5-2.239 5-5V7c0-2.761-2.239-5-5-5H7zm0 2h10c1.657 0 3 1.343 3 3v10c0 1.657-1.343 3-3 3H7c-1.657 0-3-1.343-3-3V7c0-1.657 1.343-3 3-3zm11.5 1a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0 2a3 3 0 1 1 0 6 3 3 0 0 1 0-6z" />
+          </svg>
+        </a>
+        <a aria-label="YouTube Aula Mais Longa" href="https://www.youtube.com/@AulaMaisLonga" rel="noopener noreferrer" target="_blank">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M23.498 6.186a2.997 2.997 0 0 0-2.11-2.121C19.505 3.5 12 3.5 12 3.5s-7.505 0-9.388.565a2.997 2.997 0 0 0-2.11 2.121A31.2 31.2 0 0 0 0 12a31.2 31.2 0 0 0 .502 5.814 2.997 2.997 0 0 0 2.11 2.121C4.495 20.5 12 20.5 12 20.5s7.505 0 9.388-.565a2.997 2.997 0 0 0 2.11-2.121A31.2 31.2 0 0 0 24 12a31.2 31.2 0 0 0-.502-5.814zM9.75 15.5v-7l6 3.5-6 3.5z" />
+          </svg>
+        </a>
+      </div>
+    </div>
     <ul class="nav-links">
       <li><a href="#sobre">O Projeto</a></li>
       <li><a href="#numeros">Números</a></li>

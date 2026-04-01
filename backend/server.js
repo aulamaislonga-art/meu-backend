@@ -44,7 +44,7 @@ const CHECKOUT_CONFIG = {
     key: 'presencial',
     flowType: 'inscricao',
     categoryLabel: 'Presencial - Três de Maio/RS',
-    amount: 1500,
+    amount: 1000,
     title: 'Inscrição Presencial - Aula Mais Longa',
     description: 'Inscrição presencial para a Aula Mais Longa da História.',
     confirmationPath: '/checkout/confirmacao-inscricao'
