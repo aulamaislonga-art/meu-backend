@@ -2459,7 +2459,7 @@
 
   <script>
     (() => {
-      const API_BASE_URL = String(window.API_BASE_URL || new URLSearchParams(window.location.search).get("api_base") || window.location.origin || "").replace(/\/$/, "");
+      const API_BASE_URL = String(window.API_BASE_URL || new URLSearchParams(window.location.search).get("api_base") || "https://aulamaislonga.onrender.com").replace(/\/$/, "");
       const ENDPOINT = `${API_BASE_URL}/send`;
       const CHECKOUT_URLS = {
         participante: {

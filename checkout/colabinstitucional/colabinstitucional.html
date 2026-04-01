@@ -122,7 +122,7 @@
   </main>
   <script>
     const CHECKOUT_KEY = 'colabinstitucional';
-    const API_BASE_URL = String(window.API_BASE_URL || new URLSearchParams(window.location.search).get('api_base') || window.location.origin || '').replace(/\/$/, '');
+    const API_BASE_URL = String(window.API_BASE_URL || new URLSearchParams(window.location.search).get('api_base') || 'https://aulamaislonga.onrender.com').replace(/\/$/, '');
     const form = document.getElementById('checkout-form');
     const statusBox = document.getElementById('status-box');
 

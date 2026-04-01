@@ -1216,7 +1216,7 @@
       btn.disabled = true;
 
       try {
-        const API_BASE_URL = String(window.API_BASE_URL || new URLSearchParams(window.location.search).get('api_base') || window.location.origin || '').replace(/\/$/, '');
+        const API_BASE_URL = String(window.API_BASE_URL || new URLSearchParams(window.location.search).get('api_base') || 'https://aulamaislonga.onrender.com').replace(/\/$/, '');
         const endpoint = `${API_BASE_URL}${form.getAttribute('action')}`;
         const response = await fetch(endpoint, {
           method: 'POST',

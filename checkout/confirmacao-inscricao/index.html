@@ -94,7 +94,7 @@
     </section>
   </main>
   <script>
-    const API_BASE_URL = String(window.API_BASE_URL || new URLSearchParams(window.location.search).get('api_base') || window.location.origin || '').replace(/\/$/, '');
+    const API_BASE_URL = String(window.API_BASE_URL || new URLSearchParams(window.location.search).get('api_base') || 'https://aulamaislonga.onrender.com').replace(/\/$/, '');
     const params = new URLSearchParams(window.location.search);
     const rawStatus = (params.get('status') || params.get('collection_status') || params.get('return_status') || 'pending').toLowerCase();
     const paymentId = params.get('payment_id') || params.get('collection_id') || '';
