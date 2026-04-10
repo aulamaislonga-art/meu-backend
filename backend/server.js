@@ -39,6 +39,14 @@ const upload = multer({
 const SITE_BASE_URL = (process.env.SITE_BASE_URL || 'https://aulamaislonga.com.br').replace(/\/$/, '');
 const CHECKOUT_RECORDS_FILE = path.join(__dirname, 'checkout-records.json');
 
+const DATA_DIR = path.join(__dirname, 'data');
+const SUBMISSIONS_DIR = path.join(DATA_DIR, 'submissions');
+const ATTACHMENTS_DIR = path.join(DATA_DIR, 'attachments');
+const EMAIL_JOBS_DIR = path.join(DATA_DIR, 'email-jobs');
+const EMAIL_AUDIT_FILE = path.join(DATA_DIR, 'email-jobs.jsonl');
+const SUBMISSIONS_AUDIT_FILE = path.join(DATA_DIR, 'submissions.jsonl');
+
+
 const CHECKOUT_CONFIG = {
   presencial: {
     key: 'presencial',
@@ -324,6 +332,10 @@ const requiredMailEnv = ['EMAIL_USER', 'EMAIL_PASS'];
 const missingMailEnv = requiredMailEnv.filter((key) => !process.env[key]);
 const missingCheckoutEnv = ['MP_ACCESS_TOKEN'].filter((key) => !process.env[key]);
 
+const MAIL_SEND_CUSTOMER = String(process.env.MAIL_SEND_CUSTOMER || 'true').toLowerCase() !== 'false';
+let smtpVerified = false;
+let smtpLastError = '';
+
 const transporter = nodemailer.createTransport({
   host: process.env.SMTP_HOST || 'smtp.gmail.com',
   port: Number(process.env.SMTP_PORT || 587),
@@ -333,6 +345,10 @@ const transporter = nodemailer.createTransport({
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASS
   },
+  tls: {
+    servername: process.env.SMTP_HOST || 'smtp.gmail.com',
+    rejectUnauthorized: true
+  },
   connectionTimeout: 10000,
   greetingTimeout: 10000,
   socketTimeout: 15000,
@@ -340,6 +356,348 @@ const transporter = nodemailer.createTransport({
 });
 
 const defaultFrom = () => process.env.EMAIL_FROM || `"Aula Mais Longa" <${process.env.EMAIL_USER}>`;
+
+const htmlToPlainText = (value = '') => String(value || '')
+  .replace(/<style[\s\S]*?<\/style>/gi, ' ')
+  .replace(/<script[\s\S]*?<\/script>/gi, ' ')
+  .replace(/<br\s*\/?>/gi, '\n')
+  .replace(/<\/p>/gi, '\n\n')
+  .replace(/<\/div>/gi, '\n')
+  .replace(/<li>/gi, '- ')
+  .replace(/<[^>]+>/g, ' ')
+  .replace(/&nbsp;/g, ' ')
+  .replace(/&amp;/g, '&')
+  .replace(/&lt;/g, '<')
+  .replace(/&gt;/g, '>')
+  .replace(/&quot;/g, '"')
+  .replace(/&#39;/g, "'")
+  .replace(/\n{3,}/g, '\n\n')
+  .replace(/[ \t]{2,}/g, ' ')
+  .trim();
+
+const enrichMailOptions = (mailOptions = {}) => {
+  const html = typeof mailOptions.html === 'string' ? mailOptions.html : '';
+  const text = typeof mailOptions.text === 'string' && mailOptions.text.trim()
+    ? mailOptions.text
+    : htmlToPlainText(html);
+
+  return {
+    from: defaultFrom(),
+    ...mailOptions,
+    text,
+    headers: {
+      'X-Auto-Response-Suppress': 'All',
+      ...(mailOptions.headers || {})
+    },
+    envelope: mailOptions.envelope || {
+      from: process.env.EMAIL_USER,
+      to: Array.isArray(mailOptions.to) ? mailOptions.to : [mailOptions.to].filter(Boolean)
+    }
+  };
+};
+
+const logMailError = (context, error) => {
+  console.error(`Falha no envio de e-mail (${context}):`, {
+    message: error?.message,
+    code: error?.code,
+    response: error?.response,
+    responseCode: error?.responseCode,
+    command: error?.command
+  });
+};
+
+const ensureDir = async (dirPath) => {
+  await fs.promises.mkdir(dirPath, { recursive: true });
+};
+
+const safeSlug = (value = '') => String(value || '')
+  .normalize('NFD')
+  .replace(/[\u0300-\u036f]/g, '')
+  .replace(/[^a-zA-Z0-9_-]+/g, '-')
+  .replace(/^-+|-+$/g, '')
+  .toLowerCase() || 'item';
+
+const generateId = (prefix = 'id') => `${prefix}_${Date.now()}_${Math.random().toString(36).slice(2, 10)}`;
+
+const atomicWriteJson = async (filePath, data) => {
+  const tempPath = `${filePath}.tmp-${process.pid}-${Date.now()}`;
+  await fs.promises.writeFile(tempPath, JSON.stringify(data, null, 2), 'utf8');
+  await fs.promises.rename(tempPath, filePath);
+};
+
+const appendJsonl = async (filePath, data) => {
+  await ensureDir(path.dirname(filePath));
+  await fs.promises.appendFile(filePath, `${JSON.stringify(data)}\n`, 'utf8');
+};
+
+const readJsonFile = async (filePath, fallback = null) => {
+  try {
+    const raw = await fs.promises.readFile(filePath, 'utf8');
+    return JSON.parse(raw);
+  } catch (error) {
+    if (error.code === 'ENOENT') return fallback;
+    throw error;
+  }
+};
+
+let fileWriteQueue = Promise.resolve();
+
+const withFileWriteQueue = async (callback) => {
+  const run = fileWriteQueue.catch(() => undefined).then(callback);
+  fileWriteQueue = run.catch(() => undefined);
+  return run;
+};
+
+const ensureDataFiles = async () => {
+  await ensureDir(DATA_DIR);
+  await ensureDir(SUBMISSIONS_DIR);
+  await ensureDir(ATTACHMENTS_DIR);
+  await ensureDir(EMAIL_JOBS_DIR);
+  await ensureDir(path.dirname(CHECKOUT_RECORDS_FILE));
+  for (const filePath of [SUBMISSIONS_AUDIT_FILE, EMAIL_AUDIT_FILE]) {
+    try {
+      await fs.promises.access(filePath, fs.constants.F_OK);
+    } catch {
+      await fs.promises.writeFile(filePath, '', 'utf8');
+    }
+  }
+};
+
+const getSubmissionFile = (submissionId) => path.join(SUBMISSIONS_DIR, `${submissionId}.json`);
+const getEmailJobFile = (jobId) => path.join(EMAIL_JOBS_DIR, `${jobId}.json`);
+
+const saveAttachmentToDisk = async (file, submissionId) => {
+  if (!file) return null;
+  const extension = path.extname(file.originalname || '').toLowerCase() || '';
+  const filename = `${submissionId}-${safeSlug(path.basename(file.originalname || 'arquivo', extension))}${extension}`;
+  const targetPath = path.join(ATTACHMENTS_DIR, filename);
+  await fs.promises.writeFile(targetPath, file.buffer);
+  return {
+    originalname: file.originalname,
+    filename,
+    path: targetPath,
+    mimetype: file.mimetype,
+    size: file.size
+  };
+};
+
+const createSubmission = async ({ formType, payload, attachment = null, metadata = {} }) => withFileWriteQueue(async () => {
+  await ensureDataFiles();
+  const id = generateId('sub');
+  const now = new Date().toISOString();
+  const record = {
+    id,
+    formType,
+    createdAt: now,
+    updatedAt: now,
+    status: 'received',
+    payload,
+    metadata,
+    attachment,
+    adminEmailStatus: 'pending',
+    customerEmailStatus: payload?.email ? 'pending' : 'not_applicable',
+    adminEmailAttempts: 0,
+    customerEmailAttempts: 0,
+    lastEmailError: '',
+    confirmationSentAt: '',
+    protocol: id
+  };
+
+  await atomicWriteJson(getSubmissionFile(id), record);
+  await appendJsonl(SUBMISSIONS_AUDIT_FILE, {
+    event: 'created',
+    submissionId: id,
+    formType,
+    at: now,
+    payload
+  });
+
+  return record;
+});
+
+const readSubmission = async (submissionId) => {
+  return readJsonFile(getSubmissionFile(submissionId), null);
+};
+
+const updateSubmission = async (submissionId, patch) => withFileWriteQueue(async () => {
+  const current = await readSubmission(submissionId);
+  if (!current) return null;
+
+  const nextPatch = typeof patch === 'function' ? patch(current) : patch;
+  const next = {
+    ...current,
+    ...nextPatch,
+    updatedAt: new Date().toISOString()
+  };
+
+  await atomicWriteJson(getSubmissionFile(submissionId), next);
+  await appendJsonl(SUBMISSIONS_AUDIT_FILE, {
+    event: 'updated',
+    submissionId,
+    at: next.updatedAt,
+    patch: nextPatch
+  });
+
+  return next;
+});
+
+const queueEmailJob = async ({ submissionId, audience, mailOptions, context, attempts = 0, nextRetryAt = null }) => withFileWriteQueue(async () => {
+  await ensureDataFiles();
+  const jobId = generateId('mail');
+  const now = new Date().toISOString();
+  const job = {
+    id: jobId,
+    submissionId,
+    audience,
+    context,
+    attempts,
+    status: 'pending',
+    nextRetryAt: nextRetryAt || now,
+    createdAt: now,
+    updatedAt: now,
+    lastError: '',
+    mailOptions
+  };
+
+  await atomicWriteJson(getEmailJobFile(jobId), job);
+  await appendJsonl(EMAIL_AUDIT_FILE, {
+    event: 'queued',
+    jobId,
+    submissionId,
+    audience,
+    context,
+    at: now
+  });
+  return job;
+});
+
+const updateEmailJob = async (jobId, patch) => withFileWriteQueue(async () => {
+  const filePath = getEmailJobFile(jobId);
+  const current = await readJsonFile(filePath, null);
+  if (!current) return null;
+
+  const nextPatch = typeof patch === 'function' ? patch(current) : patch;
+  const next = {
+    ...current,
+    ...nextPatch,
+    updatedAt: new Date().toISOString()
+  };
+
+  await atomicWriteJson(filePath, next);
+  await appendJsonl(EMAIL_AUDIT_FILE, {
+    event: 'updated',
+    jobId,
+    at: next.updatedAt,
+    patch: nextPatch
+  });
+
+  return next;
+});
+
+const listPendingEmailJobs = async () => {
+  await ensureDataFiles();
+  const files = await fs.promises.readdir(EMAIL_JOBS_DIR).catch(() => []);
+  const jobs = [];
+
+  for (const file of files) {
+    if (!file.endsWith('.json')) continue;
+    const job = await readJsonFile(path.join(EMAIL_JOBS_DIR, file), null);
+    if (!job || job.status !== 'pending') continue;
+    jobs.push(job);
+  }
+
+  return jobs.sort((a, b) => new Date(a.nextRetryAt).getTime() - new Date(b.nextRetryAt).getTime());
+};
+
+const getRetryDelayMs = (attempts = 0) => {
+  const delays = [60_000, 5 * 60_000, 15 * 60_000, 60 * 60_000];
+  return delays[Math.min(attempts, delays.length - 1)];
+};
+
+const markSubmissionEmailResult = async (submissionId, audience, { sent, errorMessage = '' }) => {
+  const statusField = audience === 'admin' ? 'adminEmailStatus' : 'customerEmailStatus';
+  const attemptsField = audience === 'admin' ? 'adminEmailAttempts' : 'customerEmailAttempts';
+
+  return updateSubmission(submissionId, (current) => ({
+    [statusField]: sent ? 'sent' : 'failed',
+    [attemptsField]: Number(current[attemptsField] || 0) + 1,
+    lastEmailError: sent ? '' : errorMessage,
+    confirmationSentAt: sent && audience === 'customer' ? new Date().toISOString() : current.confirmationSentAt || ''
+  }));
+};
+
+let emailWorkerRunning = false;
+
+const processEmailJob = async (job) => {
+  try {
+    await sendMail(job.mailOptions, job.context || `job:${job.id}`);
+    await updateEmailJob(job.id, { status: 'sent', lastError: '' });
+    await markSubmissionEmailResult(job.submissionId, job.audience, { sent: true });
+    return true;
+  } catch (error) {
+    const attempts = Number(job.attempts || 0) + 1;
+    const nextRetryAt = new Date(Date.now() + getRetryDelayMs(attempts - 1)).toISOString();
+
+    await updateEmailJob(job.id, {
+      status: attempts >= 5 ? 'failed' : 'pending',
+      attempts,
+      nextRetryAt,
+      lastError: error.message || 'Falha ao enviar e-mail'
+    });
+
+    await markSubmissionEmailResult(job.submissionId, job.audience, {
+      sent: false,
+      errorMessage: error.message || 'Falha ao enviar e-mail'
+    });
+
+    return false;
+  }
+};
+
+const processPendingEmailJobs = async () => {
+  if (emailWorkerRunning) return;
+  emailWorkerRunning = true;
+
+  try {
+    const jobs = await listPendingEmailJobs();
+    const now = Date.now();
+
+    for (const job of jobs) {
+      if (new Date(job.nextRetryAt || 0).getTime() > now) continue;
+      await processEmailJob(job);
+    }
+  } finally {
+    emailWorkerRunning = false;
+  }
+};
+
+const queueSubmissionEmails = async ({ submissionId, adminMail, customerMail }) => {
+  const jobs = [];
+
+  if (adminMail) {
+    jobs.push(queueEmailJob({
+      submissionId,
+      audience: 'admin',
+      context: `${submissionId}:admin`,
+      mailOptions: adminMail
+    }));
+  }
+
+  if (customerMail) {
+    jobs.push(queueEmailJob({
+      submissionId,
+      audience: 'customer',
+      context: `${submissionId}:customer`,
+      mailOptions: customerMail
+    }));
+  }
+
+  const queued = await Promise.all(jobs);
+  for (const job of queued) {
+    await processEmailJob(job);
+  }
+  return queued;
+};
 
 const ensureCheckoutStoreFile = async () => {
   try {
@@ -363,13 +721,14 @@ const writeCheckoutStore = async (store) => {
 let checkoutStoreQueue = Promise.resolve();
 
 const withCheckoutStore = async (callback) => {
-  checkoutStoreQueue = checkoutStoreQueue.then(async () => {
+  const run = checkoutStoreQueue.catch(() => undefined).then(async () => {
     const store = await readCheckoutStore();
     const result = await callback(store);
     await writeCheckoutStore(store);
     return result;
   });
-  return checkoutStoreQueue;
+  checkoutStoreQueue = run.catch(() => undefined);
+  return run;
 };
 
 const findCheckoutRecord = async ({ externalReference, paymentId }) => {
@@ -459,15 +818,28 @@ const ensureMailConfigured = (recipient) => {
   }
 };
 
-const sendMail = async (mailOptions) => {
-  await transporter.sendMail(mailOptions);
+const sendMail = async (mailOptions, context = 'geral') => {
+  try {
+    const info = await transporter.sendMail(enrichMailOptions(mailOptions));
+    console.log('E-mail enviado:', {
+      context,
+      messageId: info?.messageId,
+      response: info?.response,
+      accepted: info?.accepted,
+      rejected: info?.rejected
+    });
+    return info;
+  } catch (error) {
+    logMailError(context, error);
+    throw error;
+  }
 };
 
-const sendMailIfPossible = async (mailOptions) => {
+const sendMailIfPossible = async (mailOptions, context = 'geral') => {
   if (missingMailEnv.length > 0) {
     throw new Error(`Configuração do servidor incompleta: ${missingMailEnv.join(', ')}`);
   }
-  return sendMail(mailOptions);
+  return sendMail(mailOptions, context);
 };
 
 const buildLeadAdminMail = (data) => {
@@ -793,6 +1165,23 @@ const createCheckoutPreference = async (req, res, forcedCheckoutKey = null) => {
     const recipient = getRecipient(checkout.flowType);
     ensureMailConfigured(recipient);
 
+    const submission = await createSubmission({
+      formType: 'checkout',
+      payload: {
+        ...parsed,
+        checkoutKey: checkout.key,
+        flowType: checkout.flowType,
+        categoryLabel: checkout.categoryLabel,
+        amount: checkout.amount,
+        nomeCompleto: checkout.nomeCompleto,
+        telefoneFinal: checkout.telefone || checkout.whatsapp || ''
+      },
+      metadata: {
+        source: 'checkout',
+        forcedCheckoutKey: forcedCheckoutKey || null
+      }
+    });
+
     const { firstName, lastName } = splitName(checkout.nomeCompleto);
     const payerPhone = splitPhone(checkout.telefone || checkout.whatsapp || '');
     const externalReference = `${checkout.key}-${Date.now()}`;
@@ -833,7 +1222,8 @@ const createCheckoutPreference = async (req, res, forcedCheckoutKey = null) => {
         empresa: parsed.empresa || '',
         email: parsed.email,
         telefone: checkout.telefone || checkout.whatsapp || '',
-        mensagem: parsed.mensagem || ''
+        mensagem: parsed.mensagem || '',
+        submission_id: submission.id
       }
     };
 
@@ -841,10 +1231,15 @@ const createCheckoutPreference = async (req, res, forcedCheckoutKey = null) => {
     const checkoutUrl = preference.init_point || preference.sandbox_init_point;
 
     if (!checkoutUrl) {
+      await updateSubmission(submission.id, {
+        status: 'checkout_error',
+        lastEmailError: 'A preferência foi criada, mas o checkout não foi retornado pela API.'
+      });
       throw new Error('A preferência foi criada, mas o checkout não foi retornado pela API.');
     }
 
     let record = await upsertCheckoutRecord({
+      submissionId: submission.id,
       externalReference,
       checkoutKey: checkout.key,
       flowType: checkout.flowType,
@@ -868,36 +1263,38 @@ const createCheckoutPreference = async (req, res, forcedCheckoutKey = null) => {
       pageStatus: 'pending'
     });
 
-    const emailResults = await Promise.allSettled([
-      sendMailIfPossible(buildCheckoutCustomerMail(record, 'created')),
-      sendMailIfPossible(buildCheckoutAdminMail(record, 'created'))
-    ]);
+    await updateSubmission(submission.id, {
+      status: 'checkout_started',
+      externalReference,
+      checkoutUrl,
+      preferenceId: preference.id || '',
+      paymentStatus: 'pending'
+    });
 
-    const customerEmailSent = emailResults[0].status === 'fulfilled';
-    const adminEmailSent = emailResults[1].status === 'fulfilled';
-
-    if (!customerEmailSent || !adminEmailSent) {
-      console.error('Falha ao enviar e-mails iniciais do checkout:', emailResults);
-    }
+    const customerMail = MAIL_SEND_CUSTOMER ? buildCheckoutCustomerMail(record, 'created') : null;
+    await queueSubmissionEmails({
+      submissionId: submission.id,
+      adminMail: buildCheckoutAdminMail(record, 'created'),
+      customerMail
+    });
 
     record = await updateCheckoutRecord(externalReference, (current) => ({
-      customerStatusEmailsSent: customerEmailSent
-        ? pushUnique(current.customerStatusEmailsSent, 'pending')
-        : current.customerStatusEmailsSent,
-      adminStatusEmailsSent: adminEmailSent
-        ? pushUnique(current.adminStatusEmailsSent, 'pending')
-        : current.adminStatusEmailsSent
+      customerStatusEmailsSent: current.customerStatusEmailsSent,
+      adminStatusEmailsSent: current.adminStatusEmailsSent
     })) || record;
+
+    const updatedSubmission = await readSubmission(submission.id);
 
     return res.status(200).json({
       success: true,
       message: 'Checkout iniciado com sucesso.',
+      protocol: submission.protocol,
       checkoutUrl,
       externalReference,
       preferenceId: preference.id || null,
       emailStatus: {
-        customer: customerEmailSent ? 'sent' : 'failed',
-        admin: adminEmailSent ? 'sent' : 'failed'
+        customer: MAIL_SEND_CUSTOMER ? updatedSubmission?.customerEmailStatus || 'pending' : 'disabled',
+        admin: updatedSubmission?.adminEmailStatus || 'pending'
       }
     });
   } catch (error) {
@@ -1008,37 +1405,34 @@ const processPaymentNotification = async (req, res) => {
       return res.status(200).json({ received: true, ignored: true, reason: 'Não foi possível atualizar o registro local' });
     }
 
-    const shouldSendCustomer = !updated.customerStatusEmailsSent?.includes(statusInfo.normalized);
+    const shouldSendCustomer = MAIL_SEND_CUSTOMER && !updated.customerStatusEmailsSent?.includes(statusInfo.normalized);
     const shouldSendAdmin = !updated.adminStatusEmailsSent?.includes(statusInfo.normalized);
 
-    const jobs = [];
-    if (shouldSendCustomer) {
-      jobs.push(sendMailIfPossible(buildCheckoutCustomerMail(updated, 'status')).then(() => ({ audience: 'customer' })));
-    }
-    if (shouldSendAdmin) {
-      jobs.push(sendMailIfPossible(buildCheckoutAdminMail(updated, 'status')).then(() => ({ audience: 'admin' })));
+    if (updated.submissionId) {
+      await updateSubmission(updated.submissionId, {
+        status: `payment_${statusInfo.normalized}`,
+        paymentId: String(payment.id || paymentId),
+        paymentStatus: statusInfo.normalized,
+        paymentStatusLabel: statusInfo.label,
+        paymentStatusDetail: payment.status_detail || ''
+      });
     }
 
-    const results = await Promise.allSettled(jobs);
-    let customerSent = false;
-    let adminSent = false;
-
-    results.forEach((result) => {
-      if (result.status === 'fulfilled') {
-        if (result.value.audience === 'customer') customerSent = true;
-        if (result.value.audience === 'admin') adminSent = true;
-      }
-    });
-
-    if (results.some((item) => item.status === 'rejected')) {
-      console.error('Falha ao enviar e-mails de atualização do checkout:', results);
+    if (updated.submissionId && (shouldSendCustomer || shouldSendAdmin)) {
+      await queueSubmissionEmails({
+        submissionId: updated.submissionId,
+        adminMail: shouldSendAdmin ? buildCheckoutAdminMail(updated, 'status') : null,
+        customerMail: shouldSendCustomer ? buildCheckoutCustomerMail(updated, 'status') : null
+      });
     }
+
+    const refreshedSubmission = updated.submissionId ? await readSubmission(updated.submissionId) : null;
 
     await updateCheckoutRecord(externalReference, (record) => ({
-      customerStatusEmailsSent: customerSent
+      customerStatusEmailsSent: refreshedSubmission?.customerEmailStatus === 'sent'
         ? pushUnique(record.customerStatusEmailsSent, statusInfo.normalized)
         : record.customerStatusEmailsSent,
-      adminStatusEmailsSent: adminSent
+      adminStatusEmailsSent: refreshedSubmission?.adminEmailStatus === 'sent'
         ? pushUnique(record.adminStatusEmailsSent, statusInfo.normalized)
         : record.adminStatusEmailsSent
     }));
@@ -1073,13 +1467,20 @@ app.get('/', (req, res) => {
 
 app.get('/health', async (req, res) => {
   const store = await readCheckoutStore().catch(() => ({ records: [] }));
+  const pendingEmailJobs = await listPendingEmailJobs().catch(() => []);
   res.status(200).json({
     status: 'ok',
     env: {
       emailConfigured: missingMailEnv.length === 0,
-      mercadoPagoConfigured: missingCheckoutEnv.length === 0
+      mercadoPagoConfigured: missingCheckoutEnv.length === 0,
+      mailSendCustomer: MAIL_SEND_CUSTOMER
+    },
+    smtp: {
+      verified: smtpVerified,
+      lastError: smtpLastError
     },
     checkoutRecords: Array.isArray(store.records) ? store.records.length : 0,
+    pendingEmailJobs: pendingEmailJobs.length,
     uptime: process.uptime()
   });
 });
@@ -1095,24 +1496,27 @@ app.post('/send', async (req, res) => {
     const recipient = getRecipient(data.tipo);
     ensureMailConfigured(recipient);
 
-    const results = await Promise.allSettled([
-      sendMail(buildLeadAdminMail(data)),
-      sendMail(buildLeadCustomerMail(data))
-    ]);
+    const submission = await createSubmission({
+      formType: data.tipo,
+      payload: data,
+      metadata: { source: '/send' }
+    });
 
-    const adminSent = results[0].status === 'fulfilled';
-    const customerSent = results[1].status === 'fulfilled';
+    await queueSubmissionEmails({
+      submissionId: submission.id,
+      adminMail: buildLeadAdminMail(data),
+      customerMail: MAIL_SEND_CUSTOMER ? buildLeadCustomerMail(data) : null
+    });
 
-    if (!adminSent || !customerSent) {
-      console.error('Falha parcial no envio de e-mails do lead:', results);
-    }
+    const refreshed = await readSubmission(submission.id);
 
     return res.status(200).json({
       success: true,
-      message: data.tipo === 'patrocinio' ? 'Lead enviado com sucesso.' : 'Inscrição recebida com sucesso.',
+      protocol: submission.protocol,
+      message: data.tipo === 'patrocinio' ? 'Lead recebido com sucesso.' : 'Inscrição recebida com sucesso.',
       emailStatus: {
-        admin: adminSent ? 'sent' : 'failed',
-        customer: customerSent ? 'sent' : 'failed'
+        admin: refreshed?.adminEmailStatus || 'pending',
+        customer: MAIL_SEND_CUSTOMER ? (refreshed?.customerEmailStatus || 'pending') : 'disabled'
       }
     });
   } catch (error) {
@@ -1138,24 +1542,27 @@ app.post('/send-aluno', async (req, res) => {
     const recipient = getRecipient('aluno');
     ensureMailConfigured(recipient);
 
-    const results = await Promise.allSettled([
-      sendMail(buildStudentAdminMail(data)),
-      sendMail(buildStudentCustomerMail(data))
-    ]);
+    const submission = await createSubmission({
+      formType: 'aluno',
+      payload: data,
+      metadata: { source: '/send-aluno' }
+    });
 
-    const adminSent = results[0].status === 'fulfilled';
-    const customerSent = results[1].status === 'fulfilled';
+    await queueSubmissionEmails({
+      submissionId: submission.id,
+      adminMail: buildStudentAdminMail(data),
+      customerMail: MAIL_SEND_CUSTOMER ? buildStudentCustomerMail(data) : null
+    });
 
-    if (!adminSent || !customerSent) {
-      console.error('Falha parcial no envio de e-mails da proposta acadêmica:', results);
-    }
+    const refreshed = await readSubmission(submission.id);
 
     return res.status(200).json({
       success: true,
-      message: 'Proposta acadêmica enviada com sucesso.',
+      protocol: submission.protocol,
+      message: 'Proposta acadêmica recebida com sucesso.',
       emailStatus: {
-        admin: adminSent ? 'sent' : 'failed',
-        customer: customerSent ? 'sent' : 'failed'
+        admin: refreshed?.adminEmailStatus || 'pending',
+        customer: MAIL_SEND_CUSTOMER ? (refreshed?.customerEmailStatus || 'pending') : 'disabled'
       }
     });
   } catch (error) {
@@ -1195,24 +1602,35 @@ app.post('/send-voluntario', upload.single('attachment'), async (req, res) => {
     const recipient = getRecipient('voluntario');
     ensureMailConfigured(recipient);
 
-    const results = await Promise.allSettled([
-      sendMail(buildVolunteerAdminMail(data, req.file)),
-      sendMail(buildVolunteerCustomerMail(data))
-    ]);
+    const submission = await createSubmission({
+      formType: 'voluntario',
+      payload: data,
+      metadata: { source: '/send-voluntario' }
+    });
 
-    const adminSent = results[0].status === 'fulfilled';
-    const customerSent = results[1].status === 'fulfilled';
-
-    if (!adminSent || !customerSent) {
-      console.error('Falha parcial no envio de e-mails do voluntariado:', results);
+    const attachment = await saveAttachmentToDisk(req.file, submission.id);
+    if (attachment) {
+      await updateSubmission(submission.id, { attachment });
     }
+
+    const adminMail = buildVolunteerAdminMail(data, req.file)
+    const customerMail = MAIL_SEND_CUSTOMER ? buildVolunteerCustomerMail(data) : null;
+
+    await queueSubmissionEmails({
+      submissionId: submission.id,
+      adminMail,
+      customerMail
+    });
+
+    const refreshed = await readSubmission(submission.id);
 
     return res.status(200).json({
       success: true,
-      message: 'Cadastro de voluntário enviado com sucesso.',
+      protocol: submission.protocol,
+      message: 'Cadastro de voluntário recebido com sucesso.',
       emailStatus: {
-        admin: adminSent ? 'sent' : 'failed',
-        customer: customerSent ? 'sent' : 'failed'
+        admin: refreshed?.adminEmailStatus || 'pending',
+        customer: MAIL_SEND_CUSTOMER ? (refreshed?.customerEmailStatus || 'pending') : 'disabled'
       }
     });
   } catch (error) {
@@ -1248,6 +1666,33 @@ app.use((req, res) => {
 });
 
 const PORT = Number(process.env.PORT || 3000);
-app.listen(PORT, () => {
+app.listen(PORT, async () => {
   console.log(`Servidor rodando na porta ${PORT}`);
+
+  try {
+    await ensureDataFiles();
+    setInterval(() => {
+      processPendingEmailJobs().catch((error) => console.error('Erro no worker de e-mail:', error));
+    }, 30_000);
+  } catch (error) {
+    console.error('Falha ao preparar estrutura de persistência:', error);
+  }
+
+  if (missingMailEnv.length > 0) {
+    console.warn(`SMTP desabilitado: variáveis ausentes -> ${missingMailEnv.join(', ')}`);
+    smtpVerified = false;
+    smtpLastError = `Variáveis ausentes: ${missingMailEnv.join(', ')}`;
+    return;
+  }
+
+  try {
+    await transporter.verify();
+    smtpVerified = true;
+    smtpLastError = '';
+    console.log('SMTP OK: conexão validada com sucesso.');
+  } catch (error) {
+    smtpVerified = false;
+    smtpLastError = error.message || 'Falha ao validar SMTP';
+    logMailError('smtp-verify', error);
+  }
 });
