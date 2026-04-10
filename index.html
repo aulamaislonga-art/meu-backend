@@ -1,0 +1,3253 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8" />
+  <meta
+    content="A aula mais longa da história está chegando. Um evento ao vivo rumo ao Guinness World Record 2026 com mais de 80 horas de conteúdo."
+    name="description" />
+  <meta content="aula mais longa, Guinness, evento educacional, recorde mundial, educação" name="keywords" />
+
+  
+  <meta content="Aula Mais Longa" name="author" />
+  <!-- Open Graph -->
+  <meta content="Aula Mais Longa da História" property="og:title" />
+  <meta content="Mais de 80 horas ao vivo. Um recorde histórico em construção." property="og:description" />
+  <meta content="website" property="og:type" />
+  <meta content="URL_DA_IMAGEM" property="og:image" />
+  <!-- Twitter -->
+  <meta content="summary_large_image" name="twitter:card" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <meta content="#0a0f1e" name="theme-color" />
+  <title>Aula Mais Longa da História | Guinness World Record 2026</title>
+  <link href="https://fonts.googleapis.com" rel="preconnect" />
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+  <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="shortcut icon" href="/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bebas+Neue&amp;family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&amp;family=DM+Sans:wght@300;400;500;600&amp;family=DM+Mono:wght@400;500&amp;display=swap"
+    rel="stylesheet" />
+  <style>
+    :root {
+      --navy: #0a0f1e;
+      --navy2: #0f1830;
+      --navy3: #16213a;
+      --gold: #c8882a;
+      --gold2: #e8a83a;
+      --gold3: #f5c96a;
+      --cream: #f7f0e3;
+      --white: #ffffff;
+      --muted: #8a94a6;
+      --accent: #3a7bd5;
+      --red: #e53e3e;
+    }
+    * html > body .clearfix {
+      width: 100%;
+    }
+
+    html, body {
+      overflow-x: hidden;
+    }
+    html {
+      box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      -webkit-box-sizing: border-box;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background: var(--navy);
+    }
+
+    body {
+      font-weight: 400;
+      color: var(--cream);
+      background: var(--navy);
+      font-family: "DM Sans", sans-serif;
+    }
+
+    /* ── NOISE OVERLAY ── */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.35;
+    }
+
+    /* HEADER */
+    .header {
+      top: 0;
+      width: 100%;
+      z-index: 999;
+      position: fixed;
+      background: transparent;
+      transition: all .4s ease;
+      backdrop-filter: blur(0px);
+    }
+
+    .header.scrolled {
+      background: #0f1830;
+      backdrop-filter: blur(20px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, .25);
+    }
+
+    .nav-container {
+      margin: auto;
+      max-width: 1180px;
+      padding: 14px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-brand-img img {
+      height: 50px;
+      transition: .3s;
+    }
+
+    .nav-menu-item {
+      display: flex;
+      gap: 30px;
+    }
+
+    .nav-menu-item a {
+      color: rgba(255, 255, 255, .85);
+      text-decoration: none;
+    }
+
+    .nav-menu-item a.active,
+    .mobile-menu a.active {
+      color: white;
+      position: relative;
+    }
+    
+    .nav-menu-item a.active::after {
+      content: "";
+      left: 0;
+      bottom: -6px;
+      width: 100%;
+      height: 2px;
+      border-radius: 2px;
+      position: absolute;
+      background: white;
+    }
+    
+    .nav-cta {
+      background: rgba(255, 255, 255, .1);
+      padding: 8px 16px;
+      border-radius: 999px;
+      color: #fff;
+      text-decoration: none;
+    }
+
+    /* HAMBURGER */
+    .menu-toggle {
+      display: none;
+      width: 28px;
+      height: 20px;
+      position: relative;
+      border: none;
+      background: none;
+      cursor: pointer;
+      z-index: 1001;
+    }
+
+    .menu-toggle span {
+      position: absolute;
+      width: 100%;
+      height: 2px;
+      background: white;
+      left: 0;
+      transition: .4s ease;
+    }
+
+    .menu-toggle span:nth-child(1) {
+      top: 0;
+    }
+
+    .menu-toggle span:nth-child(2) {
+      top: 9px;
+    }
+
+    .menu-toggle span:nth-child(3) {
+      bottom: 0;
+    }
+
+    .menu-toggle.active span:nth-child(1) {
+      transform: rotate(45deg);
+      top: 9px;
+    }
+
+    .menu-toggle.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .menu-toggle.active span:nth-child(3) {
+      transform: rotate(-45deg);
+      bottom: 9px;
+    }
+
+    /* OVERLAY */
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background-color: #070a13;
+      opacity: 0;
+      pointer-events: none;
+      transition: .4s ease;
+      z-index: 998;
+    }
+
+    .overlay.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    /* MOBILE MENU */
+    .mobile-menu {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 75%;
+      max-width: 320px;
+      height: 100vh;
+      background: #c8882a;
+      backdrop-filter: blur(30px);
+      display: flex;
+      flex-direction: column;
+      padding: 100px 30px;
+      gap: 25px;
+      text-align: right;
+      transition: .5s cubic-bezier(.77, 0, .175, 1);
+      z-index: 999;
+    }
+
+    .mobile-menu a {
+      color: white;
+      text-decoration: none;
+      font-size: 18px;
+      opacity: 0;
+      transform: translateX(20px);
+      transition: .3s ease;
+    }
+
+    .mobile-menu.active {
+      right: 0;
+    }
+
+    .mobile-menu.active a {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .mobile-menu.active a:nth-child(1) {
+      transition-delay: .1s;
+    }
+
+    .mobile-menu.active a:nth-child(2) {
+      transition-delay: .15s;
+    }
+
+    .mobile-menu.active a:nth-child(3) {
+      transition-delay: .2s;
+    }
+
+    .mobile-menu.active a:nth-child(4) {
+      transition-delay: .25s;
+    }
+
+    .mobile-menu.active a:nth-child(5) {
+      transition-delay: .3s;
+    }
+
+    .mobile-menu.active a:nth-child(6) {
+      transition-delay: .35s;
+    }
+
+    .no-scroll {
+      overflow: hidden;
+    }
+
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 6rem 2rem 4rem;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 0%,
+          rgba(200, 136, 42, 0.18) 0%,
+          transparent 70%),
+        radial-gradient(ellipse 60% 80% at 80% 100%,
+          rgba(58, 123, 213, 0.12) 0%,
+          transparent 60%),
+        linear-gradient(180deg, #0a0f1e 0%, #0f1830 60%, #0a0f1e 100%);
+      z-index: -1;
+    }
+
+    /* animated grid */
+    .hero-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(200, 136, 42, 0.07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(200, 136, 42, 0.07) 1px, transparent 1px);
+      background-size: 60px 60px;
+      z-index: -1;
+      mask-image: radial-gradient(ellipse 90% 70% at 50% 50%,
+          black 30%,
+          transparent 100%);
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: rgba(200, 136, 42, 0.12);
+      border: 1px solid rgba(200, 136, 42, 0.35);
+      border-radius: 100px;
+      padding: 0.45rem 1.2rem;
+      font-family: "DM Mono", monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      color: var(--gold2);
+      text-transform: uppercase;
+      margin-bottom: 2.2rem;
+      animation: fadeUp 0.8s ease both;
+    }
+
+    .badge-dot {
+      width: 7px;
+      height: 7px;
+      background: var(--gold2);
+      border-radius: 50%;
+      animation: pulse 2s ease infinite;
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      50% {
+        opacity: 0.4;
+        transform: scale(0.7);
+      }
+    }
+
+    #desafio {
+      padding: 0 0 50px 0;
+    }
+
+    .hero-eyebrow {
+      font-family: "DM Mono", monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.25em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      animation: fadeUp 0.8s 0.1s ease both;
+    }
+
+    .hero-sub {
+      font-family: "Playfair Display", serif;
+      font-size: clamp(1.2rem, 2.5vw, 1.75rem);
+      font-style: italic;
+      color: rgba(247, 240, 227, 0.7);
+      margin-bottom: 3rem;
+      max-width: 680px;
+      animation: fadeUp 0.8s 0.2s ease both;
+    }
+
+    .hero-stats {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.5rem 3rem;
+      margin-bottom: 3.5rem;
+      animation: fadeUp 0.8s 0.3s ease both;
+    }
+
+    .hero-stat {
+      text-align: center;
+    }
+
+    .hero-stat-num {
+      font-family: "Bebas Neue", sans-serif;
+      font-size: clamp(2.5rem, 5vw, 3.8rem);
+      line-height: 1;
+      background: linear-gradient(135deg, var(--gold2), var(--gold3));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-stat-label {
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      text-transform: uppercase;
+      margin-top: 0.2rem;
+    }
+
+    .hero-cta-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+      animation: fadeUp 0.8s 0.4s ease both;
+    }
+
+    .btn-primary {
+      border: none;
+      margin: 10px 0;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--navy);
+      border-radius: 4px;
+      padding: 1rem 2.5rem;
+      text-decoration: none;
+      display: inline-block;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      transition:
+        transform 0.2s,
+        box-shadow 0.2s;
+      background: linear-gradient(135deg, var(--gold), var(--gold2));
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 40px rgba(200, 136, 42, 0.4);
+    }
+
+    .hero-cta-group .btn-primary {
+      min-width: 220px;
+    }
+
+    .contact-form .btn-primary {
+      width: 100%;
+      margin-top: 0;
+    }
+
+    .item {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.9rem;
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--cream);
+      font-weight: 500;
+      font-size: 0.95rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 1rem 2.5rem;
+      border-radius: 4px;
+      border: 1px solid rgba(247, 240, 227, 0.25);
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition:
+        border-color 0.2s,
+        background 0.2s;
+    }
+
+    .btn-outline:hover {
+      border-color: var(--gold2);
+      background: rgba(200, 136, 42, 0.08);
+    }
+
+    /* countdown */
+    .countdown-wrap {
+      margin-top: 4rem;
+      margin-bottom: 8rem;
+      animation: fadeUp 0.8s 0.5s ease both;
+    }
+
+    .countdown-label {
+      font-family: "DM Mono", monospace;
+      font-size: 0.9rem;
+      letter-spacing: 0.2em;
+      color: var(--muted);
+      text-transform: uppercase;
+      margin-bottom: 0.8rem;
+    }
+
+    .countdown {
+      display: flex;
+      gap: 0.5rem;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .cd-block {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 6px;
+      padding: 0.6rem 1rem;
+      text-align: center;
+      min-width: 100px;
+    }
+
+    .cd-num {
+      font-family: "Bebas Neue", sans-serif;
+      font-size: 4.0rem;
+      line-height: 1;
+      color: var(--gold3);
+    }
+
+    .cd-unit {
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      text-transform: uppercase;
+      margin-top: 0.15rem;
+    }
+
+    .cd-sep {
+      font-family: "Bebas Neue", sans-serif;
+      font-size: 2rem;
+      color: var(--gold);
+      opacity: 0.5;
+      animation: blink 1s step-end infinite;
+    }
+
+    @keyframes blink {
+
+      0%,
+      100% {
+        opacity: 0.5;
+      }
+
+      50% {
+        opacity: 0.1;
+      }
+    }
+
+    /* ── SECTIONS ── */
+    section {
+      position: relative;
+      z-index: 1;
+    }
+
+    .section-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-family: "DM Mono", monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.25em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .section-label::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: rgba(200, 136, 42, 0.25);
+      max-width: 80px;
+    }
+
+    .section-title {
+      font-family: "Playfair Display", serif;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 900;
+      line-height: 1.1;
+      color: var(--white);
+      margin-bottom: 1.2rem;
+    }
+
+    .section-title em {
+      color: var(--gold2);
+      font-style: normal;
+    }
+
+    .section-body {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: rgba(247, 240, 227, 0.7);
+    }
+
+    /* ── DIVIDER ── */
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg,
+          transparent,
+          rgba(200, 136, 42, 0.3),
+          transparent);
+      margin: 5rem 2rem;
+    }
+
+    /* ── RECORD BANNER ── */
+    .record-banner {
+      background: linear-gradient(135deg,
+          rgba(200, 136, 42, 0.08),
+          rgba(58, 123, 213, 0.06));
+      border: 1px solid rgba(200, 136, 42, 0.2);
+      border-radius: 12px;
+      padding: 3rem;
+      margin: 5rem auto;
+      max-width: 1180px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .record-banner-left h2 {
+      font-family: "Bebas Neue", sans-serif;
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      color: var(--white);
+      line-height: 1;
+      margin-bottom: 0.8rem;
+    }
+
+    .record-banner-left p {
+      font-size: 1rem;
+      color: rgba(247, 240, 227, 0.65);
+      line-height: 1.7;
+      max-width: 560px;
+    }
+
+    .record-badge {
+      background: linear-gradient(135deg, var(--gold), var(--gold2));
+      color: var(--navy);
+      font-family: "Bebas Neue", sans-serif;
+      font-size: 1.1rem;
+      letter-spacing: 0.08em;
+      padding: 1rem 1.8rem;
+      border-radius: 6px;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .record-badge small {
+      display: block;
+      font-family: "DM Sans", sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      opacity: 0.8;
+      margin-bottom: 0.2rem;
+    }
+
+    /* ── WHY ── */
+    .why-section {
+      padding: 2rem;
+    }
+
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+
+    .why-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 10px;
+      padding: 2rem;
+      transition:
+        border-color 0.3s,
+        transform 0.3s;
+    }
+
+    .why-card:hover {
+      border-color: rgba(200, 136, 42, 0.3);
+      transform: translateY(-4px);
+    }
+
+    .why-icon {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+    }
+
+    .why-card h3 {
+      font-family: "Playfair Display", serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 0.6rem;
+    }
+
+    .why-card p {
+      font-size: 0.93rem;
+      line-height: 1.7;
+      color: rgba(247, 240, 227, 0.6);
+    }
+
+    /* ── NUMBERS ── */
+    .numbers-section {
+      padding: 2rem;
+      background: linear-gradient(180deg,
+          transparent,
+          rgba(200, 136, 42, 0.04),
+          transparent);
+    }
+
+    .numbers-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 12px;
+      overflow: hidden;
+      margin-top: 3rem;
+    }
+
+    .number-cell {
+      padding: 2.5rem 1rem;
+      text-align: center;
+      transition: background 0.3s;
+      background: var(--navy2);
+      justify-content: center;
+      align-items: center;
+      display: inline-flex;
+      flex-direction: column;
+    }
+
+    .number-cell:hover {
+      background: rgba(200, 136, 42, 0.07);
+    }
+
+    .number-cell-num {
+      font-family: "Bebas Neue", sans-serif;
+      font-size: clamp(2.5rem, 4vw, 3.5rem);
+      background: linear-gradient(135deg, var(--gold2), var(--gold3));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1;
+    }
+
+    .number-cell-label {
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      text-transform: uppercase;
+      margin-top: 0.4rem;
+      line-height: 1.4;
+    }
+
+    /* ── TIMELINE ── */
+    .timeline-section {
+      padding: 2rem;
+    }
+
+    .timeline {
+      position: relative;
+      margin-top: 3rem;
+    }
+
+    .timeline::before {
+      content: "";
+      position: absolute;
+      left: 22px;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background: linear-gradient(180deg,
+          var(--gold),
+          rgba(200, 136, 42, 0.1));
+    }
+
+    .timeline-item {
+      gap: 2rem;
+      display: flex;
+      align-items: center;
+      margin-bottom: 2.5rem;
+      animation: fadeUp 0.6s ease both;
+    }
+
+    .timeline-dot {
+      flex-shrink: 0;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--navy2);
+      border: 2px solid var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: "DM Mono", monospace;
+      font-size: 0.75rem;
+      color: var(--gold);
+      position: relative;
+      z-index: 1;
+    }
+
+    .timeline-content {
+      padding-top: 0.6rem;
+    }
+
+    .timeline-date {
+      font-family: "DM Mono", monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      color: var(--gold2);
+      text-transform: uppercase;
+      margin-bottom: 0.3rem;
+    }
+
+    .timeline-content h3 {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 0.3rem;
+    }
+
+    .timeline-content p {
+      font-size: 0.9rem;
+      color: rgba(247, 240, 227, 0.55);
+      line-height: 1.6;
+    }
+
+    /* ── SPONSORSHIP ── */
+    .sponsor-section {
+      padding: 2rem;
+    }
+
+    .sponsor-tiers {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+
+    .sponsor-tier {
+      border-radius: 12px;
+      padding: 2.5rem;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s;
+    }
+
+    .sponsor-tier:hover {
+      transform: translateY(-6px);
+    }
+
+    .attend-card,
+    .sponsor-tier {
+      cursor: pointer;
+    }
+
+    .tier-master {
+      background: linear-gradient(135deg, #1a1400, #251c00);
+      border: 1px solid rgba(200, 136, 42, 0.5);
+    }
+
+    .tier-master::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg,
+          rgba(200, 136, 42, 0.12),
+          transparent);
+      pointer-events: none;
+    }
+
+    .tier-patrocinio {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .tier-apoio {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+    }
+
+    .tier-equipamentos {
+      background: linear-gradient(135deg,
+          rgba(58, 123, 213, 0.06),
+          rgba(58, 123, 213, 0.02));
+      border: 1px solid rgba(58, 123, 213, 0.25);
+    }
+
+    .tier-badge {
+      display: inline-block;
+      font-family: "DM Mono", monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.9rem;
+      border-radius: 100px;
+      margin-bottom: 1.2rem;
+    }
+
+    .tier-master .tier-badge {
+      background: rgba(200, 136, 42, 0.2);
+      color: var(--gold2);
+    }
+
+    .tier-patrocinio .tier-badge {
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--cream);
+    }
+
+    .tier-apoio .tier-badge {
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--muted);
+    }
+
+    .tier-equipamentos .tier-badge {
+      background: rgba(58, 123, 213, 0.15);
+      color: #7eb8f7;
+    }
+
+    .tier-name {
+      font-family: "Bebas Neue", sans-serif;
+      font-size: 1.8rem;
+      letter-spacing: 0.04em;
+      color: var(--white);
+      margin-bottom: 0.3rem;
+    }
+
+    .tier-value {
+      font-family: "Playfair Display", serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--gold2);
+      margin-bottom: 1.5rem;
+    }
+
+    .tier-value span {
+      font-size: 1rem;
+      color: var(--muted);
+      font-weight: 400;
+      font-family: "DM Sans", sans-serif;
+    }
+
+    .tier-benefits {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+    }
+
+    .tier-benefits li {
+      display: flex;
+      gap: 0.7rem;
+      align-items: flex-start;
+      font-size: 0.9rem;
+      color: rgba(247, 240, 227, 0.7);
+      line-height: 1.5;
+    }
+
+    .tier-benefits li::before {
+      content: "→";
+      color: var(--gold2);
+      flex-shrink: 0;
+      margin-top: 0.05rem;
+    }
+
+    .tier-master .tier-benefits li::before {
+      color: var(--gold3);
+    }
+
+    /* ── LEGACY ── */
+    .legacy-section {
+      padding: 2rem;
+    }
+
+    .legacy-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+      margin-top: 3rem;
+    }
+
+    .legacy-visual {
+      position: relative;
+      height: 360px;
+      border-radius: 12px;
+      overflow: hidden;
+      background: linear-gradient(135deg, var(--navy3), var(--navy2));
+      border: 1px solid rgba(200, 136, 42, 0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .legacy-visual-inner {
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .legacy-visual-inner .big-num {
+      font-family: "Bebas Neue", sans-serif;
+      font-size: 7rem;
+      line-height: 1;
+      background: linear-gradient(135deg, var(--gold), var(--gold3));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .legacy-visual-inner .big-label {
+      font-family: "Playfair Display", serif;
+      font-size: 1.3rem;
+      color: var(--cream);
+      font-style: italic;
+    }
+
+    .legacy-circle {
+      position: absolute;
+      border-radius: 50%;
+      border: 1px solid rgba(200, 136, 42, 0.15);
+    }
+
+    .lc1 {
+      width: 300px;
+      height: 300px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .lc2 {
+      width: 220px;
+      height: 220px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .lc3 {
+      width: 140px;
+      height: 140px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .legacy-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .legacy-item {
+      display: flex;
+      gap: 1.2rem;
+      align-items: flex-start;
+    }
+
+    .legacy-num {
+      flex-shrink: 0;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(200, 136, 42, 0.1);
+      border: 1px solid rgba(200, 136, 42, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: "DM Mono", monospace;
+      font-size: 0.75rem;
+      color: var(--gold2);
+    }
+
+    .legacy-item-text h4 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 0.2rem;
+    }
+
+    .legacy-item-text p {
+      font-size: 0.88rem;
+      color: rgba(247, 240, 227, 0.55);
+      line-height: 1.6;
+    }
+
+    /* ── QUOTE ── */
+    .quote-section {
+      padding: 6rem 2rem;
+      background: linear-gradient(180deg,
+          transparent,
+          rgba(200, 136, 42, 0.05),
+          transparent);
+    }
+
+    .quote-block {
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+      position: relative;
+    }
+
+    .quote-mark {
+      font-family: "Playfair Display", serif;
+      font-size: 8rem;
+      line-height: 0.5;
+      color: rgba(200, 136, 42, 0.2);
+      display: block;
+      margin-bottom: 1rem;
+    }
+
+    blockquote {
+      font-family: "Playfair Display", serif;
+      font-size: clamp(1.4rem, 2.5vw, 2rem);
+      font-style: italic;
+      line-height: 1.5;
+      color: var(--cream);
+      margin-bottom: 2rem;
+    }
+
+    .quote-author {
+      font-family: "DM Mono", monospace;
+      font-size: 0.8rem;
+      letter-spacing: 0.15em;
+      color: var(--gold2);
+      text-transform: uppercase;
+    }
+
+    /* ── PRESS ── */
+    .press-section {
+      padding: 2rem;
+    }
+
+    .press-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 2.5rem;
+    }
+
+    .press-item {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 8px;
+      padding: 0.8rem 1.5rem;
+      font-family: "Playfair Display", serif;
+      font-style: italic;
+      font-size: 0.92rem;
+      color: rgba(247, 240, 227, 0.6);
+      flex: 1;
+      min-width: 240px;
+      line-height: 1.5;
+    }
+
+    .press-item::before {
+      content: '"';
+      color: var(--gold2);
+      margin-right: 0.3rem;
+    }
+
+    /* ── CTA ── */
+    .cta-section {
+      padding: 6rem 2rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta-bg {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 70% 70% at 50% 50%,
+          rgba(200, 136, 42, 0.1) 0%,
+          transparent 70%);
+      z-index: -1;
+    }
+
+    .cta-section .section-title {
+      margin: 0 auto 1rem;
+      max-width: 1180px;
+    }
+
+    .cta-section .section-body {
+      margin: 0 auto 3rem;
+    }
+
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      border: none;
+      margin: 8px 0;
+      padding: 10px;
+      border-radius: 6px;
+    }
+
+    .form-row {
+      display: flex;
+    }
+
+    .form-field {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 6px;
+      padding: 0.9rem 1.2rem;
+      font-family: "DM Sans", sans-serif;
+      font-size: 0.95rem;
+      color: var(--cream);
+      width: 100%;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .form-field:focus {
+      border-color: rgba(200, 136, 42, 0.5);
+    }
+
+    .form-field::placeholder {
+      color: rgba(247, 240, 227, 0.3);
+    }
+
+    select.form-field option {
+      background: var(--navy2);
+    }
+
+    .form-note {
+      font-size: 0.78rem;
+      color: var(--muted);
+      text-align: center;
+      margin-top: 0.5rem;
+    }
+
+    .forms-grid {
+      max-width: 1180px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      align-items: start;
+    }
+
+    .form-card {
+      display: flex;
+      width: 100%;
+      padding: 2rem;
+      border-radius: 12px;
+      flex-direction: column;
+      backdrop-filter: blur(10px);
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .form-card h3 {
+      font-family: "Playfair Display", serif;
+      font-size: 1.35rem;
+      color: var(--white);
+      margin-bottom: 0.5rem;
+    }
+
+    .form-card p {
+      color: rgba(247, 240, 227, 0.65);
+      text-align: left;
+      line-height: 1.6;
+      margin-bottom: 1.4rem;
+    }
+
+    /* ── HOW TO WATCH / ATTEND ── */
+    .attend-section {
+      padding: 2rem;
+    }
+
+    .attend-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+
+    .attend-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 2rem;
+      transition:
+        border-color 0.3s,
+        transform 0.3s;
+    }
+
+    .attend-card:hover {
+      border-color: rgba(200, 136, 42, 0.3);
+      transform: translateY(-4px);
+    }
+
+    .attend-mode {
+      display: inline-block;
+      font-family: "DM Mono", monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold2);
+      margin-bottom: 1rem;
+    }
+
+    .attend-card h3 {
+      font-family: "Playfair Display", serif;
+      font-size: 1.3rem;
+      color: var(--white);
+      margin-bottom: 0.5rem;
+    }
+
+    .attend-price {
+      font-family: "Bebas Neue", sans-serif;
+      font-size: 2rem;
+      line-height: 1;
+      color: var(--gold3);
+      margin-bottom: 1rem;
+    }
+
+    .attend-card p {
+      font-size: 0.94rem;
+      line-height: 1.7;
+      color: rgba(247, 240, 227, 0.65);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      padding-bottom: 3rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1.5rem;
+      max-width: 1180px;
+      margin: 0 auto;
+    }
+
+    .footer-brand {
+      font-family: "Bebas Neue", sans-serif;
+      font-size: 1.4rem;
+      letter-spacing: 0.06em;
+      color: var(--white);
+    }
+
+    .footer-brand span {
+      color: var(--gold2);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .footer-links a {
+      font-size: 0.85rem;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover {
+      color: var(--gold2);
+    }
+
+    .footer-copy {
+      font-size: 0.78rem;
+      color: var(--muted);
+      width: 100%;
+      text-align: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      padding-top: 1.5rem;
+      margin-top: 0.5rem;
+    }
+
+    /* ── NAV ── */
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.82rem;
+      letter-spacing: 0.06em;
+      color: rgba(247, 240, 227, 0.6);
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--gold2);
+    }
+
+    .nav-cta {
+      background: var(--gold);
+      color: var(--navy);
+      font-weight: 700;
+      font-size: 0.8rem;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      padding: 0.6rem 1.4rem;
+      border-radius: 4px;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+
+    .nav-cta:hover {
+      background: var(--gold2);
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .nav-social {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .nav-social a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      opacity: 0.9;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+
+    .nav-social a:hover {
+      opacity: 1;
+      transform: translateY(-1px);
+    }
+
+    .nav-social svg {
+      width: 20px;
+      height: 20px;
+      display: block;
+      fill: currentColor;
+    }
+
+    /* ── ANIMS ── */
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(24px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition:
+        opacity 0.7s ease,
+        transform 0.7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .legacy-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .record-banner {
+        grid-template-columns: 1fr;
+      }
+
+      .forms-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .form-card {
+        padding: 1.25rem;
+      }
+
+      nav .nav-links {
+        display: none;
+      }
+
+      .legacy-visual {
+        height: 240px;
+      }
+    }
+
+    /* ── GUINNESS BADGE SECTION ── */
+    .guinness-strip {
+      background: rgba(200, 136, 42, 0.06);
+      border-top: 1px solid rgba(200, 136, 42, 0.15);
+      border-bottom: 1px solid rgba(200, 136, 42, 0.15);
+      padding: 1.5rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+      text-align: center;
+      margin-bottom: 5rem;
+    }
+
+    .guinness-strip-text {
+      font-family: "DM Mono", monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      color: var(--gold);
+      text-transform: uppercase;
+    }
+
+    .guinness-strip-value {
+      font-family: "Bebas Neue", sans-serif;
+      font-size: 1.4rem;
+      color: var(--white);
+      letter-spacing: 0.04em;
+    }
+
+    .strip-divider {
+      width: 1px;
+      height: 36px;
+      background: rgba(200, 136, 42, 0.2);
+    }
+
+    /* scroll indicator */
+    .scroll-indicator {
+      position: absolute;
+      bottom: 3rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      animation: fadeUp 1s 0.8s both;
+      cursor: pointer;
+    }
+
+    .scroll-line {
+      width: 1px;
+      height: 50px;
+      background: linear-gradient(180deg, var(--gold2), transparent);
+      animation: scrollPulse 2s ease infinite;
+    }
+
+    .scroll-text {
+      font-family: "DM Mono", monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      color: var(--muted);
+      text-transform: uppercase;
+      writing-mode: horizontal-tb;
+    }
+
+    @keyframes scrollPulse {
+      0% {
+        transform: scaleY(0);
+        transform-origin: top;
+      }
+
+      50% {
+        transform: scaleY(1);
+        transform-origin: top;
+      }
+
+      51% {
+        transform: scaleY(1);
+        transform-origin: bottom;
+      }
+
+      100% {
+        transform: scaleY(0);
+        transform-origin: bottom;
+      }
+    }
+
+    /* BRAND LOGO + ANCHOR OFFSET */
+    section,
+    [id] {
+      scroll-margin-top: 100px;
+    }
+
+    .nav-brand {
+      display: inline-flex;
+      align-items: center;
+      text-decoration: none;
+      line-height: 0;
+    }
+
+    .nav-brand img {
+      display: block;
+      height: 54px;
+      width: auto;
+      max-width: min(42vw, 420px);
+    }
+
+    .footer-brand {
+      display: inline-flex;
+      align-items: center;
+      line-height: 0;
+    }
+
+    .footer-brand img {
+      display: block;
+      height: 46px;
+      width: auto;
+      max-width: min(46vw, 380px);
+    }
+
+    .hero-cta-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      align-items: center;
+      width: 100%;
+    }
+
+    .hero-cta-secondary {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+    }
+
+    @media (max-width: 980px) {
+      .nav-brand img {
+        height: 42px;
+        max-width: 58vw;
+      }
+
+      .nav-left {
+        gap: 0.75rem;
+      }
+
+      .nav-social {
+        gap: 0.55rem;
+      }
+
+      .nav-social svg {
+        width: 23px;
+        height: 23px;
+      }
+    }
+
+    /* Ajustes visuais da dobra inicial */
+    .hero {
+      padding-top: 90px;
+      padding-bottom: 32px;
+    }
+
+    .hero p {
+      margin-bottom: 2.45rem;
+    }
+
+    .hero-cta-group {
+      margin-top: 0.6rem;
+      margin-bottom: 0.5rem;
+    }
+
+    @media (max-width: 980px) {
+      .hero {
+        padding-top: 90px;
+        padding-bottom: 20px;
+      }
+    }
+
+    .hero-logo img {
+      width: clamp(220px, 40vw, 520px);
+      height: auto;
+      margin-bottom: 1.5rem;
+      animation: fadeUp 0.8s 0.15s ease both;
+    }
+
+    .form-message {
+      margin-top: 10px;
+      padding: 10px;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      display: none;
+    }
+
+    @media (max-width: 900px) {
+      .forms-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .item {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media screen and (max-width: 980px) {
+      .nav-container {
+        max-width: 1024px;
+      }
+    }
+
+    @media screen and (max-width: 980px) {
+      .guinness-strip {
+        margin-bottom: 2rem;
+        ;
+      }
+
+      .nav-menu-item,
+      .nav-cta,
+      .strip-divider, .cd-sep, .divider,
+      .footer-links {
+        display: none;
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+
+      .cd-num {
+        font-size: 2rem;
+      }
+
+      .cd-block {
+        min-width: 80px;
+      }
+
+      .section-inner {
+        padding: 0;
+      }
+
+      #desafio {
+        padding: 0 30px;
+      }
+
+      footer {
+        padding: 20px 15px;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .footer-copy {
+        margin-top: 0;
+        padding-top: 1.0rem;
+      }
+
+      .footer-brand img {
+        height: 50px;
+      }
+
+      .section-body {
+        font-size: 15px;
+        line-height: 23px;
+        max-width: 100%;
+        text-align: justify;
+      }
+    }
+
+    @media screen and (max-width: 720px) {
+
+      .hero-cta-group .btn-primary,
+      .hero-cta-group,
+      .btn-outline {
+        margin: 0;
+        width: 100%;
+        min-width: 100%;
+      }
+      .nav-container, .section-inner, .record-banner, .cta-section .section-title, .forms-grid, footer {
+        max-width: 100%;
+    }
+     .item {
+      grid-template-columns: inherit;
+  }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+
+  <!-- Google tag (gtag.js) -->
+  <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-VSQYRCEZHG"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag("js", new Date());
+    gtag("config", "G-VSQYRCEZHG");
+  </script>
+</head>
+
+<body>
+  <!-- NAV -->
+  <header class="header" id="header">
+    <div class="nav-container">
+      <a class="nav-brand-img" href="https://aulamaislonga.com.br/">
+        <img src="https://aulamaislonga.com.br/images/logobranca.png" alt="Aula Mais Longa">
+      </a>
+      <nav class="nav-menu-item">
+        <a href="#sobre">O Projeto</a>
+        <a href="#numeros">Números</a>
+        <a href="#patrocinio">Patrocínio</a>
+        <a href="https://aulamaislonga.com.br/equipe" target="_blank">Equipe</a>
+        <a href="https://aulamaislonga.com.br/pesquisa" target="_blank">Pesquisa</a>
+        <a href="#assistir">Assistir</a>
+      </nav>
+      <a class="nav-cta" href="#contato">Quero Participar</a>
+      <div class="nav-social" aria-label="Redes sociais">
+        <a aria-label="Instagram Aula Mais Longa" href="https://instagram.com/aulamaislonga" rel="noopener noreferrer"
+          target="_blank">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path
+              d="M7 2C4.239 2 2 4.239 2 7v10c0 2.761 2.239 5 5 5h10c2.761 0 5-2.239 5-5V7c0-2.761-2.239-5-5-5H7zm0 2h10c1.657 0 3 1.343 3 3v10c0 1.657-1.343 3-3 3H7c-1.657 0-3-1.343-3-3V7c0-1.657 1.343-3 3-3zm11.5 1a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0 2a3 3 0 1 1 0 6 3 3 0 0 1 0-6z" />
+          </svg>
+        </a>
+        <a aria-label="YouTube Aula Mais Longa" href="https://www.youtube.com/@AulaMaisLonga" rel="noopener noreferrer"
+          target="_blank">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path
+              d="M23.498 6.186a2.997 2.997 0 0 0-2.11-2.121C19.505 3.5 12 3.5 12 3.5s-7.505 0-9.388.565a2.997 2.997 0 0 0-2.11 2.121A31.2 31.2 0 0 0 0 12a31.2 31.2 0 0 0 .502 5.814 2.997 2.997 0 0 0 2.11 2.121C4.495 20.5 12 20.5 12 20.5s7.505 0 9.388-.565a2.997 2.997 0 0 0 2.11-2.121A31.2 31.2 0 0 0 24 12a31.2 31.2 0 0 0-.502-5.814zM9.75 15.5v-7l6 3.5-6 3.5z" />
+          </svg>
+        </a>
+      </div>
+      <button class="menu-toggle" id="menuToggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+  <div class="overlay" id="overlay"></div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#sobre">O Projeto</a>
+    <a href="#numeros">Números</a>
+    <a href="#patrocinio">Patrocínio</a>
+    <a href="https://aulamaislonga.com.br/equipe" target="_blank">Equipe</a>
+    <a href="https://aulamaislonga.com.br/pesquisa" target="_blank">Pesquisa</a>
+    <a href="#assistir">Assistir</a>
+    <a href="#contato">Quero Participar</a>
+  </div>
+  <!-- HERO -->
+  <section class="hero" id="inicio">
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
+    <div class="badge">
+      <span class="badge-dot"></span>
+      Desafio Guinness Aceito · Guinness World Records 2026
+    </div>
+    <p class="hero-eyebrow">
+      4 a 7 de Setembro de 2026 · Três de Maio, RS · Brasil
+    </p>
+    <div class="hero-logo">
+      <img alt="Aula Mais Longa" decoding="async" loading="eager"
+        src="https://aulamaislonga.com.br/images/logocapa.png" />
+    </div>
+    <p class="hero-sub">
+      da história com 80 horas ininterruptas de Introdução a SQL e
+      Administração de Banco de Dados.
+    </p>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-num">80H</div>
+        <div class="hero-stat-label">de aula</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">8</div>
+        <div class="hero-stat-label">Recordes-alvo</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">60h</div>
+        <div class="hero-stat-label">record atual</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num"><img alt="Legado educacional" decoding="async" loading="eager"
+        src="https://aulamaislonga.com.br/images/connection.png" /></div>
+        <div class="hero-stat-label">Legado educacional</div>
+      </div>
+    </div>
+    <div class="hero-cta-stack">
+      <div class="hero-cta-group">
+        <a class="btn-primary" href="#patrocinio">Quero Apoiar!</a>
+        <a class="btn-primary" href="#assistir">Quero Assistir!</a>
+      </div>
+      <div class="hero-cta-secondary">
+        <a class="btn-outline" href="#sobre">Conheça o Projeto</a>
+        <a class="btn-outline" href="https://aulamaislonga.com.br/equipe" rel="noopener noreferrer"
+          target="_blank">Conheça a Equipe</a>
+        <a class="btn-outline" href="https://aulamaislonga.com.br/pesquisa/" rel="noopener noreferrer"
+          target="_blank">Linhas de Pesquisa</a>
+      </div>
+    </div>
+    <div class="countdown-wrap">
+      <p class="countdown-label">Início do desafio em</p>
+      <div class="countdown" id="countdown">
+        <div class="cd-block">
+          <div class="cd-num" id="cd-days">173</div>
+          <div class="cd-unit">dias</div>
+        </div>
+        <span class="cd-sep">:</span>
+        <div class="cd-block">
+          <div class="cd-num" id="cd-hours">14</div>
+          <div class="cd-unit">horas</div>
+        </div>
+        <span class="cd-sep">:</span>
+        <div class="cd-block">
+          <div class="cd-num" id="cd-mins">32</div>
+          <div class="cd-unit">min</div>
+        </div>
+        <span class="cd-sep">:</span>
+        <div class="cd-block">
+          <div class="cd-num" id="cd-secs">08</div>
+          <div class="cd-unit">seg</div>
+        </div>
+      </div>
+    </div>
+    <div aria-label="Ir para a seção O Projeto" class="scroll-indicator" role="button" tabindex="0">
+      <div class="scroll-line"></div>
+      <span class="scroll-text">Scroll</span>
+    </div>
+  </section>
+  <!-- GUINNESS STRIP -->
+  <div class="guinness-strip">
+    <div>
+      <div class="guinness-strip-text">Recorde Atual</div>
+      <div class="guinness-strip-value">
+        60h — Longest computer programming lesson
+      </div>
+    </div>
+    <div class="strip-divider"></div>
+    <div>
+      <div class="guinness-strip-text">Nossa meta</div>
+      <div class="guinness-strip-value">80 horas — Brasil, 2026</div>
+    </div>
+    <div class="strip-divider"></div>
+    <div>
+      <div class="guinness-strip-text">Status Guinness</div>
+      <div class="guinness-strip-value">Desafio Guinness Aceito ✓</div>
+    </div>
+    <div class="strip-divider"></div>
+    <div>
+      <div class="guinness-strip-text">Objeto de Estudo</div>
+      <div class="guinness-strip-value">
+        Introdução a SQL e Administração de Banco de Dados
+      </div>
+    </div>
+  </div>
+  <!-- SOBRE -->
+  <section class="numbers-section" id="sobre">
+    <div class="section-inner">
+      <div class="section-label">O Projeto</div>
+      <h2 class="section-title reveal">
+        Mais do que um recorde.<br />
+        Uma <em>declaração</em> sobre educação.
+      </h2>
+      <p class="section-body reveal">
+        O Prof. Matheus Boesing vai ensinar Introdução a SQL e Administração
+        de Banco de Dados por mais de 80 horas consecutivas ao vivo, em
+        formato híbrido, com participação presencial e online, numa cidade do
+        interior do Rio Grande do Sul. O Guinness World Records já aceitou o
+        desafio. A tentativa acontece de 4 a 7 de setembro de 2026, com
+        transmissão ao vivo para o mundo.
+      </p>
+      <br />
+      <p class="section-body reveal">
+        Isso não é apenas um evento. É a prova de que aprender pode ser
+        extraordinário e de que a educação transformadora acontece onde há
+        vontade, não apenas onde há recursos.
+      </p>
+    </div>
+  </section>
+  <div class="divider"></div>
+  <!-- NÚMEROS -->
+  <section class="numbers-section" id="numeros">
+    <div class="section-inner">
+      <div class="section-label">Os números</div>
+      <h2 class="section-title reveal">A escala do <em>desafio</em></h2>
+      <div class="numbers-grid reveal">
+        <div class="number-cell">
+          <div class="number-cell-num">80H</div>
+          <div class="number-cell-label">
+            de transmissão<br />ao vivo e contínua
+          </div>
+        </div>
+        <div class="number-cell">
+          <div class="number-cell-num">8</div>
+          <div class="number-cell-label">
+            Recordes a bater<br />ou estabelecer
+          </div>
+        </div>
+        <div class="number-cell">
+          <div class="number-cell-num">4 dias</div>
+          <div class="number-cell-label">de transmissão<br />ao vivo</div>
+        </div>
+        <div class="number-cell">
+          <div class="number-cell-num">+40</div>
+          <div class="number-cell-label">
+            conteúdos educacionais<br />gerados
+          </div>
+        </div>
+        <div class="number-cell">
+          <div class="number-cell-num">+800</div>
+          <div class="number-cell-label">Pílulas de<br />aprendizagem</div>
+        </div>
+        <div class="number-cell">
+          <div class="number-cell-num">60h</div>
+          <div class="number-cell-label">Record<br />Desafiado</div>
+        </div>
+        <div class="number-cell">
+          <div class="number-cell-num">+10 mil</div>
+          <div class="number-cell-label">Participantes simultâneos</div>
+        </div>
+        <div class="number-cell">
+          <div class="number-cell-num">+1 mil</div>
+          <div class="number-cell-label">
+            profissionais capacitados<br />ao vivo
+          </div>
+        </div>
+        <div class="number-cell">
+          <div class="number-cell-num">+200 mil</div>
+          <div class="number-cell-label">
+            estudantes impactados<br />online
+          </div>
+        </div>
+        <div class="number-cell">
+          <div class="number-cell-num">+1 milhão</div>
+          <div class="number-cell-label">pessoas<br />alcançadas</div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div class="divider"></div>
+  <!-- WHY -->
+  <section class="why-section" id="porque">
+    <div class="section-inner">
+      <div class="section-label">Por que importa</div>
+      <h2 class="section-title reveal">
+        Seis razões para<br /><em>fazer parte</em>
+      </h2>
+      <div class="why-grid">
+        <div class="why-card reveal">
+          <div class="why-icon">🏆</div>
+          <h3>Recorde Mundial Permanente</h3>
+          <p>
+            Associação permanente a um recorde mundial oficial do Guinness,
+            posicionando sua marca ao lado de um feito histórico em educação e
+            tecnologia no Brasil.
+          </p>
+        </div>
+        <div class="why-card reveal">
+          <div class="why-icon">📡</div>
+          <h3>Exposição Massiva</h3>
+          <p>
+            Exposição massiva com transmissão ao vivo por mais de 80 horas e
+            potencial de alcance nacional, internacional e digital em larga
+            escala, impulsionada pelo apelo global de um recorde Guinness.
+          </p>
+        </div>
+        <div class="why-card reveal">
+          <div class="why-icon">🧠</div>
+          <h3>Liderança em Educação e Tecnologia</h3>
+          <p>
+            Posicione sua marca como protagonista na transformação da educação
+            tecnológica no Brasil, associando-se a uma iniciativa de alto
+            impacto e visibilidade.
+          </p>
+        </div>
+        <div class="why-card reveal">
+          <div class="why-icon">💻</div>
+          <h3>Tecnologia como Legado</h3>
+          <p>
+            Equipamentos doados ao projeto permanecem como legado para a
+            Educação Pública. Sua marca associada ao desenvolvimento
+            tecnológico por anos.
+          </p>
+        </div>
+        <div class="why-card reveal">
+          <div class="why-icon">🎓</div>
+          <h3>Formação com Impacto Real</h3>
+          <p>
+            Formação prática de profissionais em tecnologias críticas (SQL e
+            bancos de dados), com impacto direto no mercado e potencial de
+            escala através da transmissão nacional.
+          </p>
+        </div>
+        <div class="why-card reveal">
+          <div class="why-icon">🌐</div>
+          <h3>Conteúdo Permanente e Escalável</h3>
+          <p>
+            Geração de conteúdo educacional permanente com +800 pílulas
+            digitais, ampliando o alcance do projeto e garantindo exposição
+            contínua da marca após o evento.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div class="divider"></div>
+  <section id="desafio">
+
+    <!-- RECORD BANNER -->
+    <div class="record-banner reveal" style="
+    margin: 0 auto;
+">
+      <div class="record-banner-left">
+        <h2>O DESAFIO ACEITO É DE 60H.<br />NÓS VAMOS ENSINAR POR 80+.</h2>
+        <p>
+          O título oficial aceito pelo Guinness é Longest computer programming
+          lesson, hoje com 60 horas. Nossa tentativa terá +80 horas com conteúdo
+          técnico real de Introdução a SQL e Administração de Banco de Dados.
+          Além disso, buscaremos superar e/ou estabelecer novos marcos paralelos
+          em categorias online, híbridas, universitárias e de tecnologia.
+        </p>
+      </div>
+      <div class="record-badge">
+        <small>Aceite Guinness</small>
+        LONGEST COMPUTER<br />PROGRAMMING LESSON
+      </div>
+    </div>
+  </section>
+  <div class="divider"></div>
+  <section style="padding: 2rem 2rem 5rem" id="record">
+    <div class="section-inner">
+      <div class="section-label">Recordes-alvo</div>
+      <h2 class="section-title reveal">
+        Os marcos que vamos <em>bater ou estabelecer</em>
+      </h2>
+      <div class="why-grid">
+        <div class="why-card reveal">
+          <div class="why-icon">💻</div>
+          <h3>Longest computer programming lesson</h3>
+          <p>
+            Recorde aceito pelo Guinness para a tentativa principal. Recorde
+            atual público: 60 horas.
+          </p>
+        </div>
+        <div class="why-card reveal">
+          <div class="why-icon">🪑</div>
+          <h3>Longest lesson attended</h3>
+          <p>
+            Referência pública atual de aula assistida por mais tempo: 78h
+            3min. Buscaremos superar esse marco em aderência às regras
+            aplicáveis.
+          </p>
+        </div>
+        <div class="why-card reveal">
+          <div class="why-icon">🎓</div>
+          <h3>Longest continuous student attendance</h3>
+          <p>
+            Challenge for the student who remains in the same lesson for the
+            longest uninterrupted period.
+          </p>
+        </div>
+        <div class="why-card reveal">
+          <div class="why-icon">🌐</div>
+          <h3>
+            Most users to take an online computer programming lesson in 24
+            hours
+          </h3>
+          <p>
+            Referência pública para aula online com mais pessoas: 112.314
+            participantes
+          </p>
+        </div>
+        <div class="why-card reveal">
+          <div class="why-icon">🏛️</div>
+          <h3>Longest Hybrid Technology Lesson</h3>
+          <p>buscamos estabelecer este record.</p>
+        </div>
+        <div class="why-card reveal">
+          <div class="why-icon">⏱️</div>
+          <h3>Longest Hybrid Tecnology Lesson</h3>
+          <p>buscamos estabelecer este record.</p>
+        </div>
+        <div class="why-card reveal">
+          <div class="why-icon">📺</div>
+          <h3>Longest Online Lesson</h3>
+          <p>buscamos estabelecer este record.</p>
+        </div>
+        <div class="why-card reveal">
+          <div class="why-icon">🎓</div>
+          <h3>Longest University Lesson</h3>
+          <p>buscamos estabelecer este record.</p>
+        </div>
+        <div class="why-card reveal">
+          <div class="why-icon">🧠</div>
+          <h3>Longest Tecnology Lesson</h3>
+          <p>buscamos estabelecer este record.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+  <!-- TIMELINE -->
+  <section class="timeline-section" id="cronograma">
+    <div class="section-inner">
+      <div class="section-label">Cronograma</div>
+      <h2 class="section-title reveal">
+        O caminho até<br /><em>a história</em>
+      </h2>
+      <div class="timeline">
+        <div class="timeline-item reveal">
+          <div class="timeline-dot">01</div>
+          <div class="timeline-content">
+            <div class="timeline-date">Março — Abril 2026</div>
+            <h3>Captação de Patrocinadores e Parceiros</h3>
+            <p>
+              Abertura das negociações com patrocinadores, parceiros e
+              apoiadores. Contato com empresas para aporte financeiro,
+              equipamentos e infraestrutura. Finalização do dossiê de
+              patrocínio.
+            </p>
+          </div>
+        </div>
+        <div class="timeline-item reveal">
+          <div class="timeline-dot">02</div>
+          <div class="timeline-content">
+            <div class="timeline-date">Maio — Junho 2026</div>
+            <h3>Lançamento Público e Inscrições</h3>
+            <p>
+              Lançamento da identidade visual. Abertura de inscrições
+              presenciais e online. Início da série de conteúdo nos bastidores
+              do recorde.
+            </p>
+          </div>
+        </div>
+        <div class="timeline-item reveal">
+          <div class="timeline-dot">03</div>
+          <div class="timeline-content">
+            <div class="timeline-date">Julho — Agosto 2026</div>
+            <h3>Preparação Final e Cobertura de Mídia</h3>
+            <p>
+              Contato com imprensa regional e nacional. Testes técnicos
+              completos. Release de pré-evento para portais de tecnologia e
+              educação.
+            </p>
+          </div>
+        </div>
+        <div class="timeline-item reveal">
+          <div class="timeline-dot">04</div>
+          <div class="timeline-content">
+            <div class="timeline-date">4 a 7 de Setembro 2026</div>
+            <h3>O Recorde — Ao Vivo para o Mundo</h3>
+            <p>
+              +80 horas de aula ininterrupta. Transmissão ao vivo. Cobertura
+              em tempo real. Encerramento no Dia da Independência do Brasil —
+              7 de setembro.
+            </p>
+          </div>
+        </div>
+        <div class="timeline-item reveal">
+          <div class="timeline-dot">05</div>
+          <div class="timeline-content">
+            <div class="timeline-date">Outubro — Dezembro 2026</div>
+            <h3>Legado e Entrega</h3>
+            <p>
+              Publicação das +40 conteúdos educacionais gerados e
+              distribuídos. Relatórios para patrocinadores. Consolidação do
+              legado educacional e tecnológico. Documentário.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div class="divider"></div>
+  <!-- LEGADO -->
+  <section class="legacy-section" id="legado">
+    <div class="section-inner">
+      <div class="section-label">Legado</div>
+      <h2 class="section-title reveal">
+        Tecnologia como<br /><em>nova matriz produtiva</em>
+      </h2>
+      <div class="legacy-grid">
+        <div class="legacy-visual reveal">
+          <div class="legacy-circle lc1"></div>
+          <div class="legacy-circle lc2"></div>
+          <div class="legacy-circle lc3"></div>
+          <div class="legacy-visual-inner">
+            <div class="big-num">80h</div>
+            <div class="big-label">
+              de conhecimento que<br />ficam para sempre
+            </div>
+          </div>
+        </div>
+        <div class="reveal">
+          <p class="section-body" style="margin-bottom: 2.5rem">
+            O evento não termina quando a aula acaba. O legado está no que
+            fica: equipamentos em uso educacional, profissionais capacitados e
+            uma nova visão sobre tecnologia como caminho de desenvolvimento.
+          </p>
+          <ul class="legacy-list">
+            <li class="legacy-item">
+              <div class="legacy-num">01</div>
+              <div class="legacy-item-text">
+                <h4>Equipamentos para a Educação Pública</h4>
+                <p>
+                  Notebooks, smartwatches e outros recursos doados permanecem
+                  em uso contínuo em iniciativas ligadas à Educação Pública,
+                  com a marca do doador associada.
+                </p>
+              </div>
+            </li>
+            <li class="legacy-item">
+              <div class="legacy-num">02</div>
+              <div class="legacy-item-text">
+                <h4>+40 conteúdos educacionais gerados e distribuídos</h4>
+                <p>
+                  O conteúdo das 80h será editado em módulos curtos e
+                  disponibilizado gratuitamente para ampliar o alcance
+                  educacional do projeto.
+                </p>
+              </div>
+            </li>
+            <li class="legacy-item">
+              <div class="legacy-num">03</div>
+              <div class="legacy-item-text">
+                <h4>Formação de multiplicadores</h4>
+                <p>
+                  Profissionais capacitados para dar continuidade ao processo
+                  de desenvolvimento tecnológico local.
+                </p>
+              </div>
+            </li>
+            <li class="legacy-item">
+              <div class="legacy-num">04</div>
+              <div class="legacy-item-text">
+                <h4>Legado institucional do projeto</h4>
+                <p>
+                  A documentação, os conteúdos e os ativos produzidos pelo
+                  evento sustentam a continuidade do impacto ao longo do
+                  tempo.
+                </p>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div class="divider"></div>
+  <!-- QUOTE -->
+  <section class="quote-section" id="professor">
+    <div class="quote-block reveal">
+      <span class="quote-mark">"</span>
+      <blockquote>
+        Este não é um projeto sobre resistência, é um projeto sobre
+        relevância. A educação é o que constrói o nosso legado e aprender é
+        extraordinário. Estamos aqui pra mostrar que alunos e professores
+        podem ser protagonistas em um país de futebol e carnaval. O recorde é
+        só um começo. Vamos mudar o futuro da educação e da tecnologia no
+        Brasil.
+      </blockquote>
+      <div class="quote-author">
+        Prof. Matheus Boesing · Idealizador do Desafio
+      </div>
+    </div>
+  </section>
+  <div class="divider"></div>
+  <!-- PRESS -->
+  <section class="press-section" id="midia">
+    <div class="section-inner">
+      <div class="section-label">Potencial de mídia</div>
+      <h2 class="section-title reveal">
+        As manchetes que o<br /><em> Brasil quer ler</em>
+      </h2>
+      <div class="press-row reveal">
+        <div class="press-item">
+          O maior evento educacional já realizado no Brasil
+        </div>
+        <div class="press-item">
+          Projeto brasileiro busca recorde mundial para impulsionar a educação
+          e a tecnologia
+        </div>
+        <div class="press-item">
+          O Professor que desafiou limites para mostrar que educação ainda é o
+          maior investimento de um país
+        </div>
+      </div>
+      <div class="press-row reveal">
+        <div class="press-item">
+          Cidade do interior do RS entra para a história do Guinness World
+          Records
+        </div>
+        <div class="press-item">
+          Interior do Brasil vira palco de um dos maiores movimentos
+          educacionais do mundo
+        </div>
+        <div class="press-item">
+          Brasileiro quebra um recorde curioso: dar a aula mais longa da
+          história
+        </div>
+      </div>
+      <div class="press-row reveal">
+        <div class="press-item">
+          Projeto brasileiro busca recorde mundial para impulsionar a educação
+          e a tecnologia
+        </div>
+        <div class="press-item">
+          Iniciativa no interior do RS coloca educação e inovação no centro do
+          debate nacional
+        </div>
+        <div class="press-item">
+          Evento educacional inédito posiciona cidade gaúcha no cenário global
+        </div>
+      </div>
+      <div class="press-row reveal">
+        <div class="press-item">
+          Aula recorde que busca ampliar o acesso e o interesse pela educação
+          tecnológica no Brasil
+        </div>
+        <div class="press-item">
+          80 horas de aula, um propósito maior: transformar a forma como o
+          Brasil vê a educação
+        </div>
+        <div class="press-item">
+          De uma cidade do interior para o mundo: a aula que quer inspirar
+          milhões
+        </div>
+      </div>
+    </div>
+  </section>
+  <div class="divider"></div>
+  <!-- PATROCÍNIO -->
+  <section class="sponsor-section" id="patrocinio">
+    <div class="section-inner">
+      <div class="section-label">Patrocínio</div>
+      <h2 class="section-title reveal">
+        Escolha como <em>fazer parte</em><br />da história
+      </h2>
+      <p class="section-body reveal">
+        Cada modalidade foi desenhada para gerar retorno real de visibilidade.
+        Patrocínio em equipamentos complementa a estrutura do evento e reforça
+        o legado educacional de longo prazo. As cotas de patrocínio com
+        pagamento online também podem ser parceladas em até 12x, conforme as
+        condições disponíveis no checkout.<br />
+        O custo estimados para realização do evento como planejamos é de R$2Mi.<br />
+        Isto inclui principalmente custos com Guinness, produção e infraestrutura.
+      </p>
+      <div class="sponsor-tiers" style="margin-top: 3rem">
+        <div class="sponsor-tier tier-master reveal">
+          <div class="tier-badge">Patrocínio Master</div>
+          <div class="tier-name">MASTER</div>
+          <div class="tier-value">R$ 500.000</div>
+          <ul class="tier-benefits">
+            <li>
+              Máxima visibilidade institucional em toda a comunicação do
+              projeto
+            </li>
+            <li>
+              Destaque prioritário em peças digitais, materiais do evento e
+              transmissão
+            </li>
+            <li>
+              Presença institucional nas ações de imprensa e conteúdos
+              oficiais
+            </li>
+            <li>
+              Relatório de impacto e contrapartidas estratégicas
+              personalizadas
+            </li>
+          </ul>
+        </div>
+        <div class="sponsor-tier tier-patrocinio reveal">
+          <div class="tier-badge">Patrocínio Oficial</div>
+          <div class="tier-name">PATROCÍNIO OFICIAL</div>
+          <div class="tier-value">R$ 100.000</div>
+          <ul class="tier-benefits">
+            <li>
+              Presença de marca em materiais impressos, digitais e
+              institucionais
+            </li>
+            <li>
+              Exposição relevante durante a transmissão e conteúdos
+              promocionais
+            </li>
+            <li>Reconhecimento oficial como patrocinador do projeto</li>
+            <li>Contrapartidas proporcionais ao nível de investimento</li>
+          </ul>
+        </div>
+        <div class="sponsor-tier tier-equipamentos reveal">
+          <div class="tier-badge">Parceiro Estratégico</div>
+          <div class="tier-name">PARCEIRO ESTRATÉGICO</div>
+          <div class="tier-value">R$ 80.000 <span>+ equipamentos</span></div>
+          <ul class="tier-benefits">
+            <li>
+              Integração de marca ao ecossistema técnico e operacional do
+              evento
+            </li>
+            <li>
+              Associação institucional ao legado de infraestrutura educacional
+            </li>
+            <li>
+              Visibilidade proporcional ao aporte financeiro e aos
+              equipamentos fornecidos
+            </li>
+            <li>Reconhecimento oficial como parceiro do desafio</li>
+          </ul>
+        </div>
+        <div class="sponsor-tier tier-apoio reveal">
+          <div class="tier-badge">Colaboração Institucional</div>
+          <div class="tier-name">COLABORAÇÃO INSTITUCIONAL</div>
+          <div class="tier-value">R$ 50.000</div>
+          <ul class="tier-benefits">
+            <li>Inserção de marca em materiais selecionados do projeto</li>
+            <li>
+              Presença em comunicações institucionais e agradecimentos
+              oficiais
+            </li>
+            <li>Participação como apoiador reconhecido do desafio</li>
+            <li>Contrapartidas objetivas e adequadas ao investimento</li>
+          </ul>
+        </div>
+        <div class="sponsor-tier tier-patrocinio reveal">
+          <div class="tier-badge">Suporte Estratégico</div>
+          <div class="tier-name">SUPORTE ESTRATÉGICO</div>
+          <div class="tier-value">
+            R$ 20.000 <span>+ vaga de estágio</span>
+          </div>
+          <ul class="tier-benefits">
+            <li>
+              Presença de marca em materiais digitais selecionados do projeto
+            </li>
+            <li>
+              Reconhecimento oficial na página e nos agradecimentos
+              institucionais
+            </li>
+            <li>
+              Divulgação da vaga de estágio vinculada ao legado de formação do
+              evento
+            </li>
+            <li>
+              Participação em ações de conexão com alunos e talentos do
+              projeto
+            </li>
+          </ul>
+        </div>
+        <div class="sponsor-tier tier-apoio reveal">
+          <div class="tier-badge">Apoio</div>
+          <div class="tier-name">APOIO</div>
+          <div class="tier-value">R$ 12.000</div>
+          <ul class="tier-benefits">
+            <li>
+              Inserção de marca em espaço coletivo de apoiadores do projeto
+            </li>
+            <li>
+              Reconhecimento público em comunicações e agradecimentos oficiais
+            </li>
+            <li>
+              Presença institucional em materiais de circulação definida
+            </li>
+            <li>
+              Contrapartidas compatíveis com a categoria de entrada
+              institucional
+            </li>
+          </ul>
+        </div>
+        <div class="sponsor-tier tier-patrocinio reveal">
+          <div class="tier-badge">Participação</div>
+          <div class="tier-name">PARTICIPAÇÃO</div>
+          <div class="tier-value">R$ 5.000</div>
+          <ul class="tier-benefits">
+            <li>
+              Presença institucional em espaço coletivo de colaboradores
+            </li>
+            <li>Reconhecimento público de apoio ao projeto</li>
+            <li>
+              Participação na rede de organizações que viabilizam o desafio
+            </li>
+            <li>Contrapartidas compatíveis com a categoria</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div class="divider"></div>
+  <!-- COMO ASSISTIR -->
+  <section class="attend-section" id="assistir">
+    <div class="section-inner">
+      <div class="section-label">Como assistir a aula</div>
+      <h2 class="section-title reveal">Três formas de<BR /> <em>assistir</em></h2>
+      <p class="section-body reveal">
+        Escolha a modalidade que melhor combina com a sua experiência. Você
+        pode viver o desafio presencialmente em Três de Maio/RS, participar
+        oficialmente da tentativa conjunta do recorde, ou acompanhar como
+        curso de extensão com certificação própria.
+      </p>
+      <p class="section-body reveal" style="margin-top: 1.2rem">
+        Atenção: são apenas 50 vagas presenciais e 100 vagas online. As
+        inscrições podem ser parceladas em até 12x, conforme as condições
+        disponíveis no checkout.
+      </p>
+      <div class="attend-grid">
+        <div class="attend-card reveal">
+          <span class="attend-mode">Modalidade Presencial</span>
+          <h3>Presencial em Três de Maio/RS</h3>
+          <div class="attend-price">R$ 1.000</div>
+          <p>
+            Para quem deseja assistir à aula presencialmente, vivenciar toda a
+            atmosfera do desafio no local do evento, acompanhar o professor
+            ao vivo durante a toda experiência e receber o certificado do Guinness.
+          </p>
+        </div>
+        <div class="attend-card reveal">
+          <span class="attend-mode">Modalidade Online Guinness</span>
+          <h3>Online com foco no desafio do recorde</h3>
+          <div class="attend-price">R$ 800</div>
+          <p>
+            Para quem pretende desafiar o recorde ao lado do professor e
+            buscar o certificado do Guinness em conjunto, observando as
+            regras, critérios de permanência e validações aplicáveis ao
+            desafio.
+          </p>
+        </div>
+        <div class="attend-card reveal">
+          <span class="attend-mode">Modalidade Online Simples</span>
+          <h3>Online em formato de curso de extensão</h3>
+          <div class="attend-price">R$ 500</div>
+          <p>
+            Para quem deseja assistir à aula como experiência acadêmica e
+            obter certificado exclusivamente do curso de extensão, sem vínculo
+            com a tentativa oficial do recorde Guinness.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div class="divider"></div>
+  <!-- CTA / CONTATO -->
+  <section class="cta-section" id="contato">
+    <div class="section-inner">
+      <div class="section-label"> Quero participar</div>
+      <h2 class="section-title reveal">Escolha como você quer<br />fazer parte da <em>história</em></h2>
+      <p class="section-body reveal">
+        Escolha uma das opções abaixo.
+      </p>
+    </div>
+    <div class="forms-grid">
+      <div class="form-card">
+        <h3>Patrocínios e Contrapartidas</h3>
+        <p>
+          Empresas e instituições que tenham interesse em apoiar o projeto.
+        </p>
+        <form class="contact-form" id="patrocinio-form">
+          <div class="item">
+            <div class="form-row">
+              <input class="form-field" name="nome" placeholder="Nome *" required="" />
+            </div>
+            <div class="form-row">
+              <input class="form-field" name="email" placeholder="E-mail corporativo *" required="" type="email" />
+            </div>
+          </div>
+          <div class="item">
+            <div class="form-row">
+              <input class="form-field" name="empresa" placeholder="Empresa / Instituição *" required="" type="text" />
+            </div>
+            <div class="form-row">
+              <input class="form-field" name="telefone" placeholder="WhatsApp / Telefone *" required inputmode="numeric"
+                type="tel" />
+            </div>
+          </div>
+          <div class="form-row">
+            <select class="form-field" name="categoria" required="">
+              <option disabled="" selected="" value="">
+                Selecione uma categoria de parceria de interesse *
+              </option>
+              <option>Patrocínio Master (R$ 500.000)</option>
+              <option>Patrocínio Oficial (R$ 100.000)</option>
+              <option>Parceiro Estratégico (R$ 80.000 + Equipamentos)</option>
+              <option>Colaboração Institucional (R$ 50.000)</option>
+              <option>
+                Suporte Estratégico (R$ 20.000 + Vaga de Estágio)
+              </option>
+              <option>Apoio (R$ 12.000)</option>
+              <option>Participação (R$ 5.000)</option>
+              <option>Outro / Quero Conversar</option>
+            </select>
+          </div>
+          <div class="form-row">
+            <textarea class="form-field" name="mensagem" placeholder="Mensagem ou interesse específico" rows="3"
+              style="resize: vertical"></textarea>
+          </div>
+          <div class="form-row" style="display: none">
+            <input autocomplete="off" name="website" tabindex="-1" />
+          </div>
+          <div class="form-row">
+            <button class="btn-primary" type="submit">Enviar</button>
+          </div>
+          <div aria-live="polite" class="form-message"></div>
+          <p class="form-note">
+            * Campos são obrigatórios.<br />
+            Ao enviar, seu interesse será registrado por e-mail.
+          </p>
+        </form>
+      </div>
+      <div class="form-card">
+        <h3>Quero assistir essa aula!</h3>
+        <p>Preencha com seus dados e garanta sua vaga.</p>
+        <form class="contact-form" id="inscricao-form">
+          <div class="form-row">
+            <select class="form-field" name="modalidade" required="">
+              <option disabled="" selected="" value="">
+                Como você deseja assistir? *
+              </option>
+              <option>Presencial - Três de Maio/RS</option>
+              <option>Online Guinness</option>
+              <option>Online Simples</option>
+            </select>
+          </div>
+          <div class="item">
+            <div class="form-row">
+              <input class="form-field" name="nome" placeholder="Nome *" required="" type="text" />
+            </div>
+            <div class="form-row">
+              <input class="form-field" name="sobrenome" placeholder="Sobrenome *" required="" type="text" />
+            </div>
+          </div>
+          <div class="item">
+            <div class="form-row">
+              <input class="form-field" name="email" placeholder="E-mail *" required="" type="email" />
+            </div>
+            <div class="form-row">
+              <input class="form-field" name="whatsapp" placeholder="WhatsApp *" required="" inputmode="numeric"
+                type="tel" />
+            </div>
+          </div>
+          <div class="form-row">
+            <textarea class="form-field" name="mensagem" placeholder="Mensagem" rows="3"
+              style="resize: vertical"></textarea>
+          </div>
+          <div class="form-row" style="display: none">
+            <input autocomplete="off" name="website" tabindex="-1" />
+          </div>
+          <div class="form-row">
+            <button class="btn-primary" type="submit">Inscreva-se</button>
+          </div>
+          <div aria-live="polite" class="form-message"></div>
+          <p class="form-note">
+            * Campos são obrigatórios.<br />
+            Ao enviar, sua inscrição será registrada por e-mail.
+          </p>
+        </form>
+      </div>
+    </div>
+  </section>
+  <div class="divider"></div>
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-brand">
+      <img alt="Aula Mais Longa" decoding="async" loading="eager" onerror="this.style.display = 'none'"
+        src="https://aulamaislonga.com.br/images/logobranca.png" />
+    </div>
+    <ul class="footer-links">
+      <li><a href="#sobre">O Projeto</a></li>
+      <li>
+        <a href="https://aulamaislonga.com.br/equipe" rel="noopener noreferrer" target="_blank">Equipe</a>
+      </li>
+      <li>
+        <a href="https://aulamaislonga.com.br/pesquisa/" rel="noopener noreferrer" target="_blank">Pesquisa
+          Acadêmica</a>
+      </li>
+      <li><a href="#patrocinio">Patrocínio</a></li>
+      <li><a href="#assistir">Como assistir</a></li>
+      <li><a href="#contato">Contato</a></li>
+    </ul>
+    <p class="footer-copy">
+      © 2026 Aula Mais Longa da História<br />
+      Prof. Matheus Boesing · @matheus.dba · Três de Maio, RS<br />
+    </p>
+  </footer>
+
+  <script>
+    // menu
+    const header = document.getElementById('header');
+    const toggle = document.getElementById('menuToggle');
+    const menu = document.getElementById('mobileMenu');
+    const overlay = document.getElementById('overlay');
+
+    window.addEventListener('scroll', () => {
+      header.classList.toggle('scrolled', window.scrollY > 60);
+    });
+
+    function toggleMenu() {
+      toggle.classList.toggle('active');
+      menu.classList.toggle('active');
+      overlay.classList.toggle('active');
+      document.body.classList.toggle('no-scroll');
+    }
+
+    toggle.addEventListener('click', toggleMenu);
+    overlay.addEventListener('click', toggleMenu);
+
+    document.querySelectorAll('.mobile-menu a').forEach(link => {
+      link.addEventListener('click', toggleMenu);
+    });
+
+    const sections = document.querySelectorAll("section[id]");
+    const navLinks = document.querySelectorAll(".nav-menu-item a, .mobile-menu a");
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const id = entry.target.getAttribute("id");
+
+            navLinks.forEach((link) => {
+              link.classList.remove("active");
+
+              if (link.getAttribute("href") === `#${id}`) {
+                link.classList.add("active");
+              }
+            });
+          }
+        });
+      },
+      {
+        threshold: 0.6, // ativa quando 60% da seção aparece
+      }
+    );
+
+    sections.forEach((section) => {
+      observer.observe(section);
+    });
+
+    (() => {
+      const ENDPOINT = "https://aulamaislonga.onrender.com/send";
+      const CHECKOUT_URLS = {
+        participante: {
+          "Presencial - Três de Maio/RS": "https://aulamaislonga.com.br/checkout/presencial",
+          "Online Guinness": "https://aulamaislonga.com.br/checkout/guinness",
+          "Online Simples": "https://aulamaislonga.com.br/checkout/simples",
+        },
+        patrocinio: {
+          "Patrocínio Master (R$ 500.000)": "https://aulamaislonga.com.br/checkout/master",
+          "Patrocínio Oficial (R$ 100.000)": "https://aulamaislonga.com.br/checkout/oficial",
+          "Parceiro Estratégico (R$ 80.000 + Equipamentos)": "https://aulamaislonga.com.br/checkout/parceiroestrategico",
+          "Colaboração Institucional (R$ 50.000)": "https://aulamaislonga.com.br/checkout/colabinstitucional",
+          "Suporte Estratégico (R$ 20.000 + Vaga de Estágio)": "https://aulamaislonga.com.br/checkout/suporteestrategico",
+          "Apoio (R$ 12.000)": "https://aulamaislonga.com.br/checkout/apoio",
+          "Participação (R$ 5.000)": "https://aulamaislonga.com.br/checkout/participacao",
+        },
+      };
+      const SPONSOR_CATEGORIES = [
+        "Patrocínio Master (R$ 500.000)",
+        "Patrocínio Oficial (R$ 100.000)",
+        "Parceiro Estratégico (R$ 80.000 + Equipamentos)",
+        "Colaboração Institucional (R$ 50.000)",
+        "Suporte Estratégico (R$ 20.000 + Vaga de Estágio)",
+        "Apoio (R$ 12.000)",
+        "Participação (R$ 5.000)",
+        "Outro / Quero Conversar",
+      ];
+
+      const PARTICIPANT_MODALITIES = [
+        "Presencial - Três de Maio/RS",
+        "Online Guinness",
+        "Online Simples",
+      ];
+
+      function onlyDigits(value = "") {
+        return value.replace(/\D/g, "");
+      }
+
+      function isValidEmail(value = "") {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+      }
+
+      function isValidBrazilPhone(value = "") {
+        const digits = onlyDigits(value);
+        return digits.length >= 10 && digits.length <= 11;
+      }
+
+      function buildPrefilledUrl(baseUrl, paramsObject) {
+        const url = new URL(baseUrl, window.location.origin);
+        Object.entries(paramsObject).forEach(([key, value]) => {
+          if (value) url.searchParams.set(key, value);
+        });
+        return url.toString();
+      }
+
+      function getRedirectUrl(payload) {
+        if (payload.tipo === "patrocinio") {
+          const base = CHECKOUT_URLS.patrocinio[payload.categoria];
+          return base ? buildPrefilledUrl(base, payload) : null;
+        }
+
+        if (payload.tipo === "inscricao") {
+          const base = CHECKOUT_URLS.participante[payload.modalidade];
+          return base ? buildPrefilledUrl(base, payload) : null;
+        }
+
+        return null;
+      }
+
+      function validatePayload(payload) {
+        if (payload.tipo === "patrocinio") {
+          if (!payload.nome || payload.nome.length < 2) {
+            return { ok: false, field: "nome", message: "Informe um nome válido." };
+          }
+
+          if (!isValidEmail(payload.email)) {
+            return { ok: false, field: "email", message: "Informe um e-mail corporativo válido." };
+          }
+
+          if (!payload.empresa || payload.empresa.length < 2) {
+            return { ok: false, field: "empresa", message: "Informe a empresa ou instituição." };
+          }
+
+          if (!isValidBrazilPhone(payload.telefone)) {
+            return { ok: false, field: "telefone", message: "Informe um WhatsApp/telefone válido com DDD." };
+          }
+
+          if (!SPONSOR_CATEGORIES.includes(payload.categoria)) {
+            return { ok: false, field: "categoria", message: "Selecione uma categoria de parceria válida." };
+          }
+
+          if (payload.mensagem && payload.mensagem.length > 1000) {
+            return { ok: false, field: "mensagem", message: "A mensagem pode ter no máximo 1000 caracteres." };
+          }
+
+          return { ok: true };
+        }
+
+        if (payload.tipo === "inscricao") {
+          if (!PARTICIPANT_MODALITIES.includes(payload.modalidade)) {
+            return { ok: false, field: "modalidade", message: "Selecione uma modalidade válida." };
+          }
+
+          if (!payload.nome || payload.nome.length < 2) {
+            return { ok: false, field: "nome", message: "Informe um nome válido." };
+          }
+
+          if (!payload.sobrenome || payload.sobrenome.length < 2) {
+            return { ok: false, field: "sobrenome", message: "Informe um sobrenome válido." };
+          }
+
+          if (!isValidEmail(payload.email)) {
+            return { ok: false, field: "email", message: "Informe um e-mail válido." };
+          }
+
+          if (!isValidBrazilPhone(payload.whatsapp)) {
+            return { ok: false, field: "whatsapp", message: "Informe um WhatsApp válido com DDD." };
+          }
+
+          if (payload.mensagem && payload.mensagem.length > 1000) {
+            return { ok: false, field: "mensagem", message: "A mensagem pode ter no máximo 1000 caracteres." };
+          }
+
+          return { ok: true };
+        }
+
+        return { ok: false, message: "Tipo de envio inválido." };
+      }
+
+      const FORM_CONFIG = {
+        "patrocinio-form": {
+          loadingText: "⏳ Enviando...",
+          idleText: "Enviar",
+          successMessage: "✅ Mensagem enviada com sucesso!",
+          redirectMessage: "✅ Mensagem enviada com sucesso! Redirecionando...",
+          buildPayload(form) {
+            return {
+              tipo: "patrocinio",
+              nome: form.nome.value.trim(),
+              email: form.email.value.trim(),
+              empresa: form.empresa.value.trim(),
+              telefone: form.telefone.value.trim(),
+              categoria: form.categoria.value,
+              mensagem: form.mensagem.value.trim(),
+              website: form.website.value.trim(),
+            };
+          },
+        },
+        "inscricao-form": {
+          loadingText: "⏳ Enviando...",
+          idleText: "Inscreva-se",
+          successMessage: "✅ Inscrição enviada com sucesso!",
+          redirectMessage: "✅ Inscrição enviada com sucesso! Redirecionando...",
+          buildPayload(form) {
+            return {
+              tipo: "inscricao",
+              modalidade: form.modalidade.value,
+              nome: form.nome.value.trim(),
+              sobrenome: form.sobrenome.value.trim(),
+              email: form.email.value.trim(),
+              whatsapp: form.whatsapp.value.trim(),
+              mensagem: form.mensagem.value.trim(),
+              website: form.website.value.trim(),
+            };
+          },
+        },
+      };
+
+      function setFormMessage(form, message, isSuccess = true) {
+        const feedback = form.querySelector(".form-message");
+        if (!feedback) return;
+
+        feedback.textContent = message;
+        feedback.style.display = "block";
+        feedback.style.background = isSuccess ? "#16a34a" : "#dc2626";
+        feedback.style.color = "#ffffff";
+      }
+
+      async function parseJsonSafely(response) {
+        const text = await response.text();
+        if (!text) return {};
+
+        try {
+          return JSON.parse(text);
+        } catch {
+          return { error: text };
+        }
+      }
+
+      function bindForm(formId, config) {
+        const form = document.getElementById(formId);
+        if (!form) return;
+
+        form.addEventListener("submit", async (event) => {
+          event.preventDefault();
+
+          if (form.website?.value) return;
+
+          const submitButton = form.querySelector('button[type="submit"]');
+          if (!submitButton) return;
+
+          const payload = config.buildPayload(form);
+          const validation = validatePayload(payload);
+
+          if (!validation.ok) {
+            setFormMessage(
+              form,
+              `❌ ${validation.message || "Verifique os campos informados."}`,
+              false,
+            );
+
+            if (validation.field && form[validation.field]) {
+              form[validation.field].focus();
+            }
+
+            return;
+          }
+
+          submitButton.textContent = config.loadingText;
+          submitButton.disabled = true;
+
+          try {
+            const response = await fetch(ENDPOINT, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(payload),
+            });
+
+            const result = await parseJsonSafely(response);
+
+            if (!response.ok) {
+              throw new Error(
+                result.error || "Erro ao enviar. Tente novamente.",
+              );
+            }
+
+            const redirectUrl = getRedirectUrl(payload);
+
+            if (redirectUrl) {
+              setFormMessage(form, config.redirectMessage || config.successMessage, true);
+              form.reset();
+              setTimeout(() => {
+                window.location.href = redirectUrl;
+              }, 700);
+              return;
+            }
+
+            setFormMessage(form, config.successMessage, true);
+            form.reset();
+          } catch (error) {
+            setFormMessage(
+              form,
+              `❌ ${error.message || "Erro ao enviar. Tente novamente."}`,
+              false,
+            );
+          } finally {
+            submitButton.textContent = config.idleText;
+            submitButton.disabled = false;
+          }
+        });
+      }
+
+      Object.entries(FORM_CONFIG).forEach(([formId, config]) =>
+        bindForm(formId, config),
+      );
+
+      const countdownElements = {
+        days: document.getElementById("cd-days"),
+        hours: document.getElementById("cd-hours"),
+        mins: document.getElementById("cd-mins"),
+        secs: document.getElementById("cd-secs"),
+      };
+
+      function updateCountdown() {
+        if (
+          !countdownElements.days ||
+          !countdownElements.hours ||
+          !countdownElements.mins ||
+          !countdownElements.secs
+        ) {
+          return;
+        }
+
+        const target = new Date("2026-09-04T09:00:00-03:00");
+        const now = new Date();
+        const diff = target - now;
+
+        if (diff <= 0) {
+          countdownElements.days.textContent = "00";
+          countdownElements.hours.textContent = "00";
+          countdownElements.mins.textContent = "00";
+          countdownElements.secs.textContent = "00";
+          return;
+        }
+
+        const days = Math.floor(diff / 86400000);
+        const hours = Math.floor((diff % 86400000) / 3600000);
+        const mins = Math.floor((diff % 3600000) / 60000);
+        const secs = Math.floor((diff % 60000) / 1000);
+
+        countdownElements.days.textContent = String(days).padStart(2, "0");
+        countdownElements.hours.textContent = String(hours).padStart(2, "0");
+        countdownElements.mins.textContent = String(mins).padStart(2, "0");
+        countdownElements.secs.textContent = String(secs).padStart(2, "0");
+      }
+
+      updateCountdown();
+      window.setInterval(updateCountdown, 1000);
+
+      if ("IntersectionObserver" in window) {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("visible");
+                observer.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.1, rootMargin: "0px 0px -40px 0px" },
+        );
+
+        document
+          .querySelectorAll(".reveal")
+          .forEach((element) => observer.observe(element));
+      } else {
+        document
+          .querySelectorAll(".reveal")
+          .forEach((element) => element.classList.add("visible"));
+      }
+
+      const contatoSection = document.getElementById("contato");
+      function setupClickableCards(rootSelector, cardSelector) {
+        const root = document.querySelector(rootSelector);
+        if (!root || !contatoSection) return;
+
+        root.querySelectorAll(cardSelector).forEach((card) => {
+          if (card.closest("a")) return;
+
+          card.setAttribute("role", "link");
+          card.setAttribute("tabindex", "0");
+
+          const goToContact = () =>
+            contatoSection.scrollIntoView({
+              behavior: "smooth",
+              block: "start",
+            });
+
+          card.addEventListener("click", (event) => {
+            if (
+              event.target.closest(
+                "a, button, input, textarea, select, label",
+              )
+            )
+              return;
+            goToContact();
+          });
+
+          card.addEventListener("keydown", (event) => {
+            if (event.key === "Enter" || event.key === " ") {
+              event.preventDefault();
+              goToContact();
+            }
+          });
+        });
+      }
+
+      setupClickableCards("#assistir", ".attend-card");
+      setupClickableCards("#patrocinio", ".sponsor-tier");
+
+      const aboutSection = document.getElementById("sobre");
+      const scrollIndicator = document.querySelector(".scroll-indicator");
+      if (scrollIndicator && aboutSection) {
+        const goToAbout = () =>
+          aboutSection.scrollIntoView({ behavior: "smooth", block: "start" });
+
+        scrollIndicator.addEventListener("click", goToAbout);
+        scrollIndicator.addEventListener("keydown", (event) => {
+          if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            goToAbout();
+          }
+        });
+      }
+    })();
+  </script>
+</body>
+
+</html>
