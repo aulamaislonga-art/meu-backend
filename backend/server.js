@@ -97,7 +97,7 @@ const CHECKOUT_CONFIG = {
     key: 'apoio',
     flowType: 'patrocinio',
     categoryLabel: 'Apoio',
-    amount: 12000,
+    amount: 5000,
     title: 'Apoio - Aula Mais Longa',
     description: 'Categoria para marcas e instituições que desejam apoiar o projeto.',
     confirmationPath: '/checkout/confirmacao-apoio'
