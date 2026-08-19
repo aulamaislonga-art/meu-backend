@@ -115,7 +115,7 @@ const CHECKOUT_CONFIG = {
     key: 'suporteestrategico',
     flowType: 'patrocinio',
     categoryLabel: 'Suporte Estratégico',
-    amount: 20000,
+    amount: 12000,
     title: 'Suporte Estratégico - Aula Mais Longa',
     description: 'Categoria voltada a parceiros com entrega estratégica para o projeto.',
     confirmationPath: '/checkout/confirmacao-apoio'
@@ -132,9 +132,10 @@ const CHECKOUT_CONFIG = {
 };
 
 const SPONSOR_PAGE_ONLY_CATEGORIES = new Set([
-  'Patrocínio Master (R$ 300.000 – 500.000)',
-  'Patrocínio Oficial (R$ 100.000)',
-  'Parceiro Estratégico (R$ 80.000 + Equipamentos)',
+  'Patrocínio Master (R$ 100.000)',
+  'Patrocínio Oficial (R$ 50.000)',
+  'Parceiro Estratégico (R$ 20.000)',
+  'Suporte Estratégico (R$ 12.000)',
   'Outro / Quero Conversar'
 ]);
 
