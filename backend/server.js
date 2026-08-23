@@ -70,7 +70,7 @@ const CHECKOUT_CONFIG = {
     key: 'simples',
     flowType: 'inscricao',
     categoryLabel: 'Online Simples',
-    amount: 500,
+    amount: 100,
     title: 'Inscrição Online Simples - Aula Mais Longa',
     description: 'Inscrição online para acompanhar a Aula Mais Longa.',
     confirmationPath: '/checkout/confirmacao-inscricao'
