@@ -52,7 +52,7 @@ const CHECKOUT_CONFIG = {
     key: 'presencial',
     flowType: 'inscricao',
     categoryLabel: 'Presencial - Três de Maio/RS',
-    amount: 1000,
+    amount: 300,
     title: 'Inscrição Presencial - Aula Mais Longa',
     description: 'Inscrição presencial para a Aula Mais Longa da História.',
     confirmationPath: '/checkout/confirmacao-inscricao'
@@ -61,7 +61,7 @@ const CHECKOUT_CONFIG = {
     key: 'guinness',
     flowType: 'inscricao',
     categoryLabel: 'Online Guinness',
-    amount: 800,
+    amount: 100,
     title: 'Inscrição Online Guinness - Aula Mais Longa',
     description: 'Inscrição online com acesso à experiência principal da Aula Mais Longa.',
     confirmationPath: '/checkout/confirmacao-inscricao'
